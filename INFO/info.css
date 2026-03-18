@@ -1,0 +1,329 @@
+/* ================= RESET ================= */
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family: Arial, sans-serif;
+}
+
+body{
+    background:#f2f9f3;
+}
+
+/* NAVBAR */
+header {
+    background: #ffffff;
+    padding: 13px 0;
+    border-bottom: 5px solid #f8c20f;
+    position: sticky;
+    top: 0;
+    z-index: 9999;
+}
+
+/* Tambahkan ini untuk mengatur jarak kiri-kanan halaman */
+.pembungkus {
+    margin: 0 auto;
+    padding: 0 40px;
+}
+
+.nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.logo-img {
+    height: 40px;
+    object-fit: contain;
+}
+
+nav {
+    display: flex;
+    gap: 15px; /* Sedikit dikecilkan agar muat dengan padding baru */
+    align-items: center;
+}
+
+nav a {
+    color: #1f5f3f;
+    text-decoration: none;
+    font-size: 20px;
+    font-weight: 500;
+    transition: 0.3s;
+    padding: 8px 16px; /* Tambahan padding agar kotak rapi */
+    border-radius: 8px; /* Sudut membulat */
+    display: flex;
+    align-items: center;
+}
+
+nav a:hover {
+    color: #d4af37;
+    background-color: rgba(244, 180, 0, 0.1); /* Efek sentuh tipis */
+}
+
+/* Gaya untuk menu yang sedang aktif */
+nav a.active {
+    background-color: #f3bd28e6 !important; 
+    color: white !important;             
+    font-weight: bold;
+}
+
+
+
+
+/* Gaya khusus tombol Login/Logout */
+.tombol-login {
+    background: #5daa6c;
+    color: white !important;
+    padding: 8px 18px !important;
+    border-radius: 8px;
+    text-decoration: none;
+    font-weight: bold;
+    transition: 0.3s;
+}
+
+.tombol-login:hover {
+    background: #144d32; /* Efek hover untuk tombol login */
+}
+/* ================= HERO ================= */
+.hero{
+    background:linear-gradient(rgba(0,0,0,0.5),rgba(0,0,0,0.5)),
+    url('../img/gedung.jpeg');
+    background-size:cover;
+    background-position:center;
+    color:white;
+    text-align:center;
+    padding:120px 20px;
+}
+
+.search-box{
+    display:flex;
+    justify-content:center;
+    margin-top:25px;
+}
+
+.search-box button{
+    padding:14px 25px;
+    border:none;
+    cursor:pointer;
+    background:linear-gradient(to right,#1b5e20,#2e7d32);
+    color:white;
+    border-radius:0 14px 14px 0;
+}
+
+.search-box input{
+    width:450px;
+    padding:14px;
+    border-radius:14px 0 0 14px;
+    border:1px solid #ddd;
+    outline:none;
+}
+
+.hero h1{
+    font-size:42px;
+    margin-bottom:10px;
+}
+
+.hero p{
+    font-size:18px;
+    opacity:0.9;
+}
+
+/* ================= LAYOUT UTAMA ================= */
+.main-layout{
+    display:flex;
+    gap:80px;
+    padding:50px 80px;
+}
+
+.left-content{
+    flex:3;
+}
+
+.right-content{
+    flex:1.8; /* Diubah dari 0.10 ke 1 agar sidebar tetap kelihatan tapi tidak terlalu besar */
+}
+
+.sub{
+    color:#666;
+    margin-bottom:25px;
+}
+
+/* ================= CARD KEGIATAN ================= */
+.card{
+    display:flex;
+    background:white;
+    margin-bottom:30px;
+    border-radius:15px;
+    overflow:hidden;
+    box-shadow:0 8px 20px rgba(0, 0, 0, 0.05); /* Shadow lebih halus */
+    transition:0.3s;
+}
+
+.card:hover{
+    transform:translateY(-5px);
+}
+
+.card-img img{
+    width:280px;
+    height:200px;
+    object-fit:cover;
+}
+
+.kategori{
+    position:absolute;
+    top:12px;
+    left:12px;
+    background:#d4af37;
+    color:white;
+    padding:6px 14px;
+    border-radius:8px;
+    font-size:12px;
+    font-weight:bold;
+}
+
+.card-body{
+    padding:20px;
+}
+
+.card-body h3{
+    margin-bottom:10px;
+    color:#1f4d2e;
+}
+
+.btn{
+    display:inline-block;
+    margin-top:15px;
+    padding:10px 20px;
+    background:#1f4d2e;
+    color:white;
+    text-decoration:none;
+    border-radius:8px;
+    transition:0.3s;
+}
+
+/* ================= SIDEBAR & DOKUMENTASI ================= */
+.dokumentasi {
+    flex: 1.5;
+    max-width: 350px; /* Menjaga agar sidebar tidak melebar tak terkendali */
+}
+
+.right-content{
+    flex:1.8; /* Diubah dari 0.10 ke 1 agar sidebar tetap kelihatan tapi tidak terlalu besar */
+}
+
+.dokumentasi h3 {
+    color: #1f4d2e;
+    font-size: 22px;
+    margin-bottom: 20px;
+    border-left: 5px solid #d4af37;
+    padding-left: 10px;
+}
+
+.mini-card {
+    background: #ffffff;
+    padding: 12px;
+    border-radius: 12px;
+    margin-bottom: 20px;
+    width: 100%;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08); 
+    transition: 0.3s;
+    border: 1px solid #e0eee0;
+}
+
+.mini-card img {
+    width: 100%;
+    height: 280px; 
+    object-fit: cover;
+    display: block;
+    border-radius: 8px;
+    margin-bottom: 12px;
+}
+
+/* KODE BARU UNTUK GAMBAR DETAIL (YANG BESAR TADI) */
+.detail-img {
+    display: block;
+    margin: 20px auto;     /* Biar di tengah */
+    width: 45%;            /* Mengecilkan gambar yang tadinya raksasa */
+    max-width: 600px;
+    border-radius: 15px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+    border: 5px solid white;
+}
+
+/* ================= RESPONSIVE ================= */
+@media(max-width:900px){
+    .main-layout{
+        flex-direction:column;
+        padding:20px;
+    }
+    .card{
+        flex-direction:column;
+    }
+    .card-img img{
+        width:100%;
+        height:220px;
+    }
+    .detail-img {
+        width: 90%; /* Di HP gambar detail tetap besar biar jelas */
+    }
+}
+
+.footer {
+    background: #ffffff; /* Menggunakan HEX solid agar pasti tidak transparan */
+    color: #1f5f3f;      /* Warna teks hijau tua yang tegas */
+    text-align: center;
+    padding: 20px 0;     /* Sedikit lebih tebal ukurannya */
+    font-size: 14px;
+    font-weight: bold;   /* Menebalkan tulisan di footer */
+
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    z-index: 9999;
+}
+
+/* ================= TOMBOL KONTROL ADMIN ================= */
+.btn-tambah {
+    display: inline-block;
+    background: #d4af37; /* Kuning emas CSSMoRA */
+    color: #1f4d2e;
+    padding: 12px 25px;
+    border-radius: 8px;
+    text-decoration: none;
+    font-weight: bold;
+    margin-bottom: 25px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+    transition: 0.3s;
+}
+.btn-tambah:hover {
+    background: #b5952f;
+    transform: translateY(-2px);
+}
+
+.admin-controls {
+    display: flex;
+    gap: 10px;
+    margin-top: 15px;
+}
+.btn-edit {
+    background: #f8c20f;
+    color: black;
+    padding: 10px 20px;
+    border-radius: 8px;
+    text-decoration: none;
+    font-weight: bold;
+    transition: 0.3s;
+}
+.btn-edit:hover { background: #d4af37; }
+
+.btn-hapus {
+    background: #dc3545;
+    color: white;
+    padding: 10px 20px;
+    border-radius: 8px;
+    text-decoration: none;
+    font-weight: bold;
+    transition: 0.3s;
+}
+.btn-hapus:hover { background: #c82333; }
