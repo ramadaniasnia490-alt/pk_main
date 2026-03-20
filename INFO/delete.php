@@ -1,7 +1,9 @@
 <?php
 session_start();
-// KUNCI KEAMANAN: HANYA ADMIN
-if(!isset($_SESSION['nia']) || $_SESSION['role'] != 'admin'){
+include "../login/koneksi.php";
+
+// INI KUNCI YANG BENAR
+if(!isset($_SESSION['role']) || $_SESSION['role'] != 'admin'){
     echo "<script>alert('Akses Ditolak!'); window.location='index.php';</script>";
     exit;
 }

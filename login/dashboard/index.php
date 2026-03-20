@@ -1,8 +1,13 @@
 <?php
 session_start();
-// Jika belum login ATAU rolenya BUKAN admin, tendang keluar!
-if(!isset($_SESSION['nia']) || $_SESSION['role'] != 'admin'){
-    header("Location: ../../home/index.php");
+
+// Cek apakah yang login benar-benar memiliki role 'admin'
+if(!isset($_SESSION['role']) || $_SESSION['role'] != 'admin'){
+    // Beri pesan peringatan agar kita tahu kenapa dia ditendang
+    echo "<script>
+            alert('Akses Ditolak! Anda bukan Admin atau sesi Anda telah habis.');
+            window.location.href = '../../home/index.php';
+          </script>";
     exit;
 }
 ?>
@@ -23,18 +28,12 @@ if(!isset($_SESSION['nia']) || $_SESSION['role'] != 'admin'){
         <span>DASHBOARD CSSMORA</span>
     </div>
     <div class="user-menu">
-        <span>Halo, <strong><?php echo $_SESSION['nia']; ?></strong></span>
+        <span>Halo, <strong>Admin Utama</strong></span>
         <a href="../logout.php" class="btn-logout">Logout</a>
     </div>
 </div>
 
 <div class="dashboard">
-
-    <div class="card">
-        <h3>Profil Saya</h3>
-        <p>Lihat dan atur data diri Anda.</p>
-        <a href="../profil.php" class="btn-card">Buka Profil</a>
-    </div>
 
     <?php if($_SESSION['role'] == "admin"){ ?>
     <div class="card">
@@ -48,6 +47,12 @@ if(!isset($_SESSION['nia']) || $_SESSION['role'] != 'admin'){
         <h3>Info Kegiatan</h3>
         <p>Kelola informasi kegiatan terbaru.</p>
         <a href="../../INFO/index.php" class="btn-card">Lihat Kegiatan</a>
+    </div>
+
+    <div class="card">
+        <h3>Kelola Berita</h3>
+        <p>Tulis dan kelola berita organisasi.</p>
+        <a href="../../berita/index.php" class="btn-card">Kelola Berita</a>
     </div>
 
 </div>

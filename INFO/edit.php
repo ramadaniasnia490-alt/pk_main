@@ -1,28 +1,31 @@
 <?php
 session_start();
-// KUNCI KEAMANAN: HANYA ADMIN
-if(!isset($_SESSION['nia']) || $_SESSION['role'] != 'admin'){
+include "../login/koneksi.php";
+
+// INI KUNCI YANG BENAR
+if(!isset($_SESSION['role']) || $_SESSION['role'] != 'admin'){
     echo "<script>alert('Akses Ditolak!'); window.location='index.php';</script>";
     exit;
 }
 
-include "koneksi.php";
 $id = mysqli_real_escape_string($conn, $_GET['id']);
 
 // Ambil data lama
 $query = mysqli_query($conn, "SELECT * FROM kegiatan WHERE id='$id'");
 $data = mysqli_fetch_assoc($query);
 
+// Proses Update
 if(isset($_POST['update'])){
     $judul     = mysqli_real_escape_string($conn, $_POST['judul']);
     $kategori  = mysqli_real_escape_string($conn, $_POST['kategori']);
-    $tanggal   = mysqli_real_escape_string($conn, $_POST['tanggal_kegiatan']);
+    $tanggal   = mysqli_real_escape_string($conn, $_POST['tanggal']); // Diperbaiki: menangkap input name='tanggal'
     $waktu     = mysqli_real_escape_string($conn, $_POST['waktu']);
     $lokasi    = mysqli_real_escape_string($conn, $_POST['lokasi']);
     $deskripsi = mysqli_real_escape_string($conn, $_POST['deskripsi']);
 
-    // 1. Update Teks
-    mysqli_query($conn, "UPDATE kegiatan SET judul='$judul', kategori='$kategori', tanggal='$tanggal_kegiatan', waktu='$waktu', lokasi='$lokasi', deskripsi='$deskripsi' WHERE id='$id'");
+    // 1. Update Teks Kegiatan (Diperbaiki nama kolom tanggalnya menjadi tanggal_kegiatan)
+    $update_query = "UPDATE kegiatan SET judul='$judul', kategori='$kategori', tanggal_kegiatan='$tanggal', waktu='$waktu', lokasi='$lokasi', deskripsi='$deskripsi' WHERE id='$id'";
+    mysqli_query($conn, $update_query);
     
     // 2. Jika Admin memilih foto baru tambahan
     if(isset($_FILES['foto']['name'][0]) && $_FILES['foto']['name'][0] != ""){
@@ -71,7 +74,7 @@ if(isset($_POST['update'])){
             <div style="display:flex; gap:10px;">
                 <div style="flex:1;">
                     <label>Tanggal</label>
-                    <input type="date" name="tanggal" value="<?php echo $data['tanggal']; ?>" required>
+                    <input type="date" name="tanggal" value="<?php echo $data['tanggal_kegiatan']; ?>" required>
                 </div>
                 <div style="flex:1;">
                     <label>Waktu</label>

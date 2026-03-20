@@ -1,5 +1,4 @@
 <?php
-// 1. Tambahkan session_start() agar PHP bisa mengecek status login
 session_start();
 ?>
 <!DOCTYPE html>

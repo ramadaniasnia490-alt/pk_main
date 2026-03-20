@@ -22,7 +22,7 @@ $data = mysqli_fetch_assoc($query);
     <title>Profil Saya - CSSMoRA</title>
     
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="login.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"> <link rel="stylesheet" href="login.css">
     
     <style>
         /* BACKGROUND HALAMAN */
@@ -33,7 +33,7 @@ $data = mysqli_fetch_assoc($query);
         /* WADAH PROFIL (Mengadopsi desain detail.php) */
         .profil-wrapper {
             max-width: 800px;
-            margin: 50px auto;
+            margin: 50px auto 100px auto; /* Margin bottom ditambah agar tidak tertutup footer */
             background: white;
             padding: 40px;
             border-radius: 15px;
@@ -172,8 +172,7 @@ $data = mysqli_fetch_assoc($query);
                 <?php endif; ?>
 
                 <a href="profil.php" style="color: #d4af37;">Profil</a>
-                <a href="logout.php" class="login" style="background: #dc3545;">Logout</a>
-            <?php else: ?>
+<a href="logout.php" style="background-color: #dc3545; color: white; padding: 6px 16px; border-radius: 6px; text-decoration: none; font-weight: 500;">Logout</a>
                 <a href="index.php" class="login">Login</a>
             <?php endif; ?>
         </nav>
@@ -186,7 +185,7 @@ $data = mysqli_fetch_assoc($query);
         <div class="header-profil">
             <div class="profile-photo">
                 <?php if(!empty($data['foto'])): ?>
-                    <img src="../ALUMNI/<?php echo $data['foto']; ?>" alt="Foto Profil">
+                    <img src="../ALUMNI/<?php echo htmlspecialchars($data['foto']); ?>" alt="Foto Profil">
                 <?php else: ?>
                     <span class="placeholder">👤</span>
                 <?php endif; ?>
@@ -247,11 +246,17 @@ $data = mysqli_fetch_assoc($query);
         <?php endif; ?>
 
         <?php if(!empty($data['cita_cita'])): ?>
-        <div class="info-item">
+        <div class="info-item" style="margin-bottom: 20px;">
             <div class="info-label">🌟 Cita-Cita</div>
             <div class="info-value"><?php echo htmlspecialchars($data['cita_cita']); ?></div>
         </div>
         <?php endif; ?>
+
+        <div style="text-align: center; margin-top: 40px; border-top: 1px solid #eee; padding-top: 25px;">
+            <a href="edit_profil.php" style="background: #f8c20f; color: #1f5f3f; padding: 12px 30px; border-radius: 8px; font-weight: bold; text-decoration: none; display: inline-block; box-shadow: 0 4px 10px rgba(0,0,0,0.1); font-size: 16px; transition: 0.3s;">
+                <i class="fas fa-user-edit"></i> Edit Profil Saya
+            </a>
+        </div>
 
     <?php else: ?>
         <div class="header-profil">
@@ -259,7 +264,7 @@ $data = mysqli_fetch_assoc($query);
                 <span class="placeholder">👤</span>
             </div>
             <h1>Pengguna Baru</h1>
-            <div class="nia-badge">NIA: <?php echo $_SESSION['nia']; ?></div>
+            <div class="nia-badge">NIA: <?php echo htmlspecialchars($_SESSION['nia']); ?></div>
         </div>
         <div class="alert-kosong">
             <h3>⚠️ Data Profil Anda Belum Tersedia</h3>
@@ -269,7 +274,7 @@ $data = mysqli_fetch_assoc($query);
 
 </div>
 
-<footer class="footer" style="background: #ffffff; color: #1f5f3f; text-align: center; padding: 20px 0; font-size: 14px; font-weight: bold; position: fixed; bottom: 0; left: 0; width: 100%; box-shadow: 0 -5px 15px rgba(0, 0, 0, 0.05);">
+<footer class="footer" style="background: #ffffff; color: #1f5f3f; text-align: center; padding: 20px 0; font-size: 14px; font-weight: bold; position: fixed; bottom: 0; left: 0; width: 100%; box-shadow: 0 -5px 15px rgba(0, 0, 0, 0.05); z-index: 999;">
     © 2019 UIN Alauddin Makassar. All Rights Reserved.
 </footer>
 

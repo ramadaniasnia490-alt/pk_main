@@ -3,40 +3,36 @@ session_start();
 include "koneksi.php";
 
 if(isset($_POST['login'])){
-
-    $nia = mysqli_real_escape_string($conn, $_POST['nia']); 
+    $input_user = mysqli_real_escape_string($conn, $_POST['nia']); 
     $password = $_POST['password'];
 
-    $query = mysqli_query($conn, "SELECT * FROM users WHERE nia='$nia'");
-    $data = mysqli_fetch_assoc($query);
+    // CEK ADMIN DULU
+    $query_admin = mysqli_query($conn, "SELECT * FROM admin WHERE username='$input_user'");
+    $data_admin = mysqli_fetch_assoc($query_admin);
 
-    if($data){
-        // Cek apakah password cocok
-        if(password_verify($password, $data['password'])){
-            
-            // Simpan data login ke session
-            $_SESSION['nia'] = $data['nia'];
-            $_SESSION['role'] = $data['role'];
-
-            // LOGIKA PENGALIHAN (REDIRECT) BERDASARKAN ROLE
-            if($_SESSION['role'] == 'admin'){
-                // Jika Admin, masuk ke ruang kendali Dashboard
-                header("Location: dashboard/index.php"); 
-            } else {
-                // Jika User biasa, masuk ke halaman Profil
-                header("Location: ../home/index.php"); 
-            }
+    if($data_admin){
+        if(password_verify($password, $data_admin['password'])){
+            $_SESSION['role'] = 'admin';
+            $_SESSION['nama'] = $data_admin['nama'];
+            header("Location: dashboard/index.php");
             exit;
-
-        }else{
-            // Error jika password salah
-            echo "<script>alert('Gagal Login: Password yang Anda masukkan salah!'); window.location='login.php';</script>";
         }
-
-    }else{
-        // Error jika NIA tidak ada di database
-        echo "<script>alert('Gagal Login: NIA tersebut belum terdaftar!'); window.location='login.php';</script>";
     }
+
+    // KALAU BUKAN ADMIN, BARU CEK USER
+    $query_user = mysqli_query($conn, "SELECT * FROM users WHERE nia='$input_user'");
+    $data_user = mysqli_fetch_assoc($query_user);
+
+    if($data_user){
+        if(password_verify($password, $data_user['password'])){
+            $_SESSION['nia'] = $data_user['nia'];
+            $_SESSION['role'] = 'user';
+            header("Location: profil.php");
+            exit;
+        }
+    }
+    
+    echo "<script>alert('ID atau Password Salah!'); window.location='login.php';</script>";
 }
 ?>
 

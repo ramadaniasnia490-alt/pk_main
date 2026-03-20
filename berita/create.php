@@ -1,9 +1,13 @@
 <?php
 session_start();
-if(!isset($_SESSION['nia']) || $_SESSION['role'] != 'admin'){
-    echo "<script>alert('Akses Ditolak: Hanya Admin!'); window.location='index.php';</script>";
+include "../login/koneksi.php";
+
+// INI KUNCI YANG BENAR
+if(!isset($_SESSION['role']) || $_SESSION['role'] != 'admin'){
+    echo "<script>alert('Akses Ditolak!'); window.location='index.php';</script>";
     exit;
 }
+
 include "koneksi.php";
 
 if(isset($_POST['simpan'])){
