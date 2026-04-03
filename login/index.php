@@ -16,7 +16,7 @@ session_start();
         <img src="../home/cssmora.jpeg" class="logo-img">
 
         <nav>
-            <a href="../home/index.html">Home</a>
+            <a href="../home/index.php" class="<?php echo strpos($url_sekarang, '/home/') !== false ? 'active' : ''; ?>">Home</a>
             <a href="../ALUMNI/index.php">Alumni</a>
             <a href="../INFO/index.php">Info Kegiatan</a>
             <a href="../berita/index.php">Berita</a>

@@ -21,21 +21,26 @@ if(isset($_GET['cari'])){
 <header>
     <div class="pembungkus nav"> 
         <img src="../home/cssmora.jpeg" class="logo-img" alt="Logo">
-        <nav>
+       <nav>
             <?php $url_sekarang = $_SERVER['REQUEST_URI']; ?>
-            <a href="../home/index.php">Home</a>
-            <a href="../ALUMNI/index.php">Alumni</a>
-            <a href="../INFO/index.php" class="active">Info Kegiatan</a>
-            <a href="../berita/index.php">Berita</a>
 
-            <?php if(isset($_SESSION['nia'])): ?>
+            <a href="../home/index.php" class="<?php echo strpos($url_sekarang, '/home/') !== false ? 'active' : ''; ?>">Home</a>
+            <a href="../ALUMNI/index.php" class="<?php echo strpos($url_sekarang, '/ALUMNI/') !== false ? 'active' : ''; ?>">Alumni</a>
+            <a href="../INFO/index.php" class="<?php echo strpos($url_sekarang, '/INFO/') !== false ? 'active' : ''; ?>">Info Kegiatan</a>
+            <a href="../berita/index.php" class="<?php echo strpos($url_sekarang, '/berita/') !== false ? 'active' : ''; ?>">Berita</a>
+
+            <?php if(isset($_SESSION['role'])): ?>
+                
                 <?php if($_SESSION['role'] == 'admin'): ?>
-                    <a href="../login/dashboard/index.php">Dashboard</a>
+                    <a href="../login/dashboard/index.php" class="<?php echo strpos($url_sekarang, '/dashboard/') !== false ? 'active' : ''; ?>">Dashboard</a>
                 <?php endif; ?>
-                <a href="../login/profil.php">Profil</a>
-                <a href="../login/logout.php" class="login" style="background: #dc3545 !important; color: white !important;">Logout</a>
+                
+                <a href="../login/logout.php" style="background: #dc3545 !important; color: white !important; padding: 8px 15px; border-radius: 5px; font-weight: bold; text-decoration: none; margin-left: 15px;">Logout</a>
+            
             <?php else: ?>
-                <a href="../login/index.php" class="login">Login</a>
+                
+                <a href="../login/index.php" style="background: #1f5f3f; color: white; padding: 8px 15px; border-radius: 5px; font-weight: bold; text-decoration: none; margin-left: 15px;">Login</a>
+                
             <?php endif; ?>
         </nav>
     </div>
@@ -116,10 +121,14 @@ if(isset($_GET['cari'])){
             
             <img src="uploads/<?= $foto_galeri; ?>" style="width: 100%; border-radius: 5px; display: block;" alt="Dokumentasi">
             
-            <div style="margin-top: 15px; text-align: center; border-top: 2px dashed #eee; padding-top: 15px;">
-                <a href="edit_dokumentasi.php?id=<?= $id_gal; ?>" style="background: #ffc107; color: black; padding: 8px 20px; border-radius: 5px; text-decoration: none; font-weight: bold; margin-right: 10px; display: inline-block;"> EDIT</a>
-                <a href="hapus_dokumentasi.php?id=<?= $id_gal; ?>" style="background: #dc3545; color: white; padding: 8px 20px; border-radius: 5px; text-decoration: none; font-weight: bold; display: inline-block;">HAPUS</a>
-            </div>
+           <?php if(isset($_SESSION['role']) && $_SESSION['role'] == 'admin') { ?>
+    
+    <div style="margin-top: 15px; text-align: center; border-top: 2px dashed #eee; padding-top: 15px;">
+        <a href="edit_dokumentasi.php?id=<?= $id_gal; ?>" style="background: #ffc107; color: black; padding: 8px 20px; border-radius: 5px; text-decoration: none; font-weight: bold; margin-right: 10px; display: inline-block;">EDIT</a>
+        <a href="hapus_dokumentasi.php?id=<?= $id_gal; ?>" style="background: #dc3545; color: white; padding: 8px 20px; border-radius: 5px; text-decoration: none; font-weight: bold; display: inline-block;" onclick="return confirm('Yakin hapus foto ini?');">HAPUS</a>
+    </div>
+
+<?php } ?>
             
         </div>
     <?php 

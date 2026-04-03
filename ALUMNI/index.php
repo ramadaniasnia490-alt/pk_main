@@ -42,20 +42,26 @@ $query = mysqli_query($conn, $sql);
 <header>
     <div class="pembungkus nav"> 
         <img src="../home/cssmora.jpeg" class="logo-img" alt="Logo">
-        <nav>
-            <a href="../home/index.php">Home</a>
-            <a href="../ALUMNI/index.php" class="active">Alumni</a>
-            <a href="../INFO/index.php">Info Kegiatan</a> 
-            <a href="../berita/index.php">Berita</a>
-            
-            <?php if(isset($_SESSION['nia'])): ?>
+     <nav>
+            <?php $url_sekarang = $_SERVER['REQUEST_URI']; ?>
+
+            <a href="../home/index.php" class="<?php echo strpos($url_sekarang, '/home/') !== false ? 'active' : ''; ?>">Home</a>
+            <a href="../ALUMNI/index.php" class="<?php echo strpos($url_sekarang, '/ALUMNI/') !== false ? 'active' : ''; ?>">Alumni</a>
+            <a href="../INFO/index.php" class="<?php echo strpos($url_sekarang, '/INFO/') !== false ? 'active' : ''; ?>">Info Kegiatan</a>
+            <a href="../berita/index.php" class="<?php echo strpos($url_sekarang, '/berita/') !== false ? 'active' : ''; ?>">Berita</a>
+
+            <?php if(isset($_SESSION['role'])): ?>
+                
                 <?php if($_SESSION['role'] == 'admin'): ?>
-                    <a href="../login/dashboard/index.php">Dashboard</a>
+                    <a href="../login/dashboard/index.php" class="<?php echo strpos($url_sekarang, '/dashboard/') !== false ? 'active' : ''; ?>">Dashboard</a>
                 <?php endif; ?>
-                <a href="../login/profil.php">Profil</a>
-                <a href="../login/logout.php" class="tombol-login" style="background: #dc3545;">Logout</a>
+                
+                <a href="../login/logout.php" style="background: #dc3545 !important; color: white !important; padding: 8px 15px; border-radius: 5px; font-weight: bold; text-decoration: none; margin-left: 15px;">Logout</a>
+            
             <?php else: ?>
-                <a href="../login/index.php" class="tombol-login">Login</a>
+                
+                <a href="../login/index.php" style="background: #1f5f3f; color: white; padding: 8px 15px; border-radius: 5px; font-weight: bold; text-decoration: none; margin-left: 15px;">Login</a>
+                
             <?php endif; ?>
         </nav>
     </div>

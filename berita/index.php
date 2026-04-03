@@ -32,41 +32,42 @@ if(isset($_GET['cari'])){
 <header>
     <div class="pembungkus nav"> 
         <img src="../home/cssmora.jpeg" class="logo-img" alt="Logo">
-        <nav>
-    <?php 
-    // Jurus andalan: Mendeteksi nama folder dari URL yang sedang dibuka
-    $url_sekarang = $_SERVER['REQUEST_URI']; 
-    ?>
-    
-    <a href="../home/index.php" class="<?php echo strpos($url_sekarang, '/home/') !== false ? 'active' : ''; ?>">Home</a>
-    
-    <a href="../ALUMNI/index.php" class="<?php echo strpos($url_sekarang, '/ALUMNI/') !== false ? 'active' : ''; ?>">Alumni</a>
-    
-    <a href="../INFO/index.php" class="<?php echo strpos($url_sekarang, '/INFO/') !== false ? 'active' : ''; ?>">Info Kegiatan</a>
-    
-    <a href="../berita/index.php" class="<?php echo strpos($url_sekarang, '/berita/') !== false ? 'active' : ''; ?>">Berita</a>
+     <nav>
+            <?php $url_sekarang = $_SERVER['REQUEST_URI']; ?>
 
-    <?php if(isset($_SESSION['nia'])): ?>
-        <?php if($_SESSION['role'] == 'admin'): ?>
-            <a href="../login/dashboard/index.php">Dashboard</a>
-        <?php endif; ?>
-        <a href="../login/profil.php">Profil</a>
-        <a href="../login/logout.php" class="tombol-login" style="background: #dc3545;">Logout</a>
-    <?php else: ?>
-        <a href="../login/index.php" class="tombol-login <?php echo strpos($url_sekarang, '/login/') !== false ? 'active' : ''; ?>">Login</a>
-    <?php endif; ?>
-</nav>
+            <a href="../home/index.php" class="<?php echo strpos($url_sekarang, '/home/') !== false ? 'active' : ''; ?>">Home</a>
+            <a href="../ALUMNI/index.php" class="<?php echo strpos($url_sekarang, '/ALUMNI/') !== false ? 'active' : ''; ?>">Alumni</a>
+            <a href="../INFO/index.php" class="<?php echo strpos($url_sekarang, '/INFO/') !== false ? 'active' : ''; ?>">Info Kegiatan</a>
+            <a href="../berita/index.php" class="<?php echo strpos($url_sekarang, '/berita/') !== false ? 'active' : ''; ?>">Berita</a>
+
+            <?php if(isset($_SESSION['role'])): ?>
+                
+                <?php if($_SESSION['role'] == 'admin'): ?>
+                    <a href="../login/dashboard/index.php" class="<?php echo strpos($url_sekarang, '/dashboard/') !== false ? 'active' : ''; ?>">Dashboard</a>
+                <?php endif; ?>
+                
+                <a href="../login/logout.php" style="background: #dc3545 !important; color: white !important; padding: 8px 15px; border-radius: 5px; font-weight: bold; text-decoration: none; margin-left: 15px;">Logout</a>
+            
+            <?php else: ?>
+                
+                <a href="../login/index.php" style="background: #1f5f3f; color: white; padding: 8px 15px; border-radius: 5px; font-weight: bold; text-decoration: none; margin-left: 15px;">Login</a>
+                
+            <?php endif; ?>
+        </nav>
     </div>
 </header>
 
-<section class="hero">
-    <h1>Berita Alumni CSSMoRA</h1>
-    <p>Berita terbaru seputar kegiatan, prestasi, dan kabar penting alumni CSSMoRA.</p>
-
-    <form method="GET" class="search-box">
-        <input type="text" name="cari" placeholder="Cari berita..." value="<?php echo htmlspecialchars($cari); ?>">
-        <button type="submit">Cari</button>
-    </form>
+<section class="hero-berita">
+    <div class="overlay-berita"></div>
+    <div class="hero-content-berita">
+        <h1>Berita Alumni CSSMoRA</h1>
+        <p>Berita terbaru seputar kegiatan, prestasi, dan kabar penting alumni CSSMoRA.</p>
+        
+        <form action="" method="GET" class="search-box">
+            <input type="text" name="cari" placeholder="Cari berita..." value="">
+            <button type="submit">Cari</button>
+        </form>
+    </div>
 </section>
 
 <section class="berita-list">

@@ -10,6 +10,7 @@ body {
     min-height: 100vh;
     padding-bottom: 70px; /* Supaya konten tidak tertutup footer */
 }
+
 /* NAVBAR */
 header {
     background: #ffffff;
@@ -20,44 +21,17 @@ header {
     z-index: 9999;
 }
 
-
-/* [UBAH] Judul Halaman: Hapus margin kiri-kanan karena sudah dibungkus */
+/* KITA TAMBAHKAN JARAK 40px DI KIRI KANAN BIAR SEJAJAR */
 .judul-halaman {
     font-size: 32px;
     color: #0f5132;
-    margin: 15px 0 25px 0; /* Ubah jadi 0 agar sejajar */
+    margin: 15px 40px 25px 40px; 
 }
 
-
-/* [UBAH] Judul Angkatan: Hapus margin kiri-kanan */
 .judul-angkatan {
     color: #d4a017;
-    margin: 0 0 15px 0; /* Ubah jadi 0 agar sejajar */
+    margin: 0 40px 15px 40px; 
 }
-/* [UBAH] Kotak Filter: Hapus margin 30px 40px */
-.kotak-filter {
-    background: #fff;
-    padding: 25px 30px;
-    border-radius: 14px;
-    box-shadow: 0 6px 18px rgba(0,0,0,0.08);
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 30px; /* Cukup margin bawah saja */
-}
-
-/* [TAMBAHKAN] Supaya input cari tidak terlalu lebar di layar kecil */
-.input-cari-nama {
-    max-width: 100%; /* Menghindari overflow */
-    width: 450px;    /* Sedikit diperkecil dari 550px */
-    /* ... sisa kode tetap sama ... */
-}
-
-
-
-
-
-
 
 /* Tambahkan ini untuk mengatur jarak kiri-kanan halaman */
 .pembungkus {
@@ -78,7 +52,7 @@ header {
 
 nav {
     display: flex;
-    gap: 15px; /* Sedikit dikecilkan agar muat dengan padding baru */
+    gap: 15px;
     align-items: center;
 }
 
@@ -88,15 +62,15 @@ nav a {
     font-size: 20px;
     font-weight: 500;
     transition: 0.3s;
-    padding: 8px 16px; /* Tambahan padding agar kotak rapi */
-    border-radius: 8px; /* Sudut membulat */
+    padding: 8px 16px; 
+    border-radius: 8px; 
     display: flex;
     align-items: center;
 }
 
 nav a:hover {
     color: #d4af37;
-    background-color: rgba(244, 180, 0, 0.1); /* Efek sentuh tipis */
+    background-color: rgba(244, 180, 0, 0.1); 
 }
 
 /* Gaya untuk menu yang sedang aktif */
@@ -118,8 +92,9 @@ nav a.active {
 }
 
 .tombol-login:hover {
-    background: #144d32; /* Efek hover untuk tombol login */
+    background: #144d32; 
 }
+
 /* BAGIAN FILTER */
 .kotak-filter {
     background: #fff;
@@ -129,7 +104,7 @@ nav a.active {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin: 30px 40px;
+    margin: 30px 40px; /* Sudah ada jarak 40px kiri-kanan */
 }
 
 .bagian-kiri-filter {
@@ -194,15 +169,19 @@ nav a.active {
     border-radius: 8px;
     text-decoration: none;
     font-weight: 600;
+    display: inline-block;
+    margin: 0 0 20px 40px; /* Tambahkan margin kiri 40px biar sejajar */
 }
 
-/*  KARTU DATA ALUMNI */
+/* KARTU DATA ALUMNI */
 .kotak-alumni {
     background: #feffff;
     border-radius: 14px;
-    /* Angka 40px di bawah ini yang akan mendorong isi kartu agar tidak mepet ke kiri */
     padding: 20px 40px !important; 
-    margin-bottom: 20px;
+    
+    /* INI RAHASIANYA BIAR TIDAK MEPET KIRI KANAN */
+    margin: 0 40px 20px 40px; 
+    
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -211,7 +190,7 @@ nav a.active {
     height: 130px;
 }
 .kotak-alumni:hover {
-    transform: translateY(-3px); /* Efek naik sedikit saat disentuh kursor */
+    transform: translateY(-3px); 
     box-shadow: 0 8px 20px rgba(0,0,0,0.12);
 }
 
@@ -220,7 +199,7 @@ nav a.active {
     height: 85px;
     border-radius: 12px;
     overflow: hidden;
-    margin-right: 30px; /* <--- Tambahkan/ubah jadi 30px supaya teks tidak mepet foto */
+    margin-right: 30px; 
     flex-shrink: 0;
 }
 .bagian-foto img {
@@ -233,7 +212,7 @@ nav a.active {
     flex: 1;
 }
 
-/*  TOMBOL  (PROFIL, EDIT, HAPUS)  */
+/* TOMBOL  (PROFIL, EDIT, HAPUS)  */
 .tombol-profil {
     background: linear-gradient(180deg, #ffc107, #f4b400);
     padding: 10px 18px;

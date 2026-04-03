@@ -1,12 +1,17 @@
-body{
-    margin:0;
-    font-family: Arial, Helvetica, sans-serif;
-    background: linear-gradient(to bottom, #f8fafc, #eef3f1);
+/* ================= RESET ================= */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
 }
 
-/* NAVBAR */
+body{
+    font-family: Arial, Helvetica, sans-serif;
+background:#f2f9f3;
+    padding-bottom: 70px;
+}
+
 /* ================= NAVBAR (SAMA DENGAN HOME) ================= */
-/* NAVBAR */
 header {
     background: #ffffff;
     padding: 13px 0;
@@ -16,7 +21,6 @@ header {
     z-index: 9999;
 }
 
-/* Tambahkan ini untuk mengatur jarak kiri-kanan halaman */
 .pembungkus {
     margin: 0 auto;
     padding: 0 40px;
@@ -35,7 +39,7 @@ header {
 
 nav {
     display: flex;
-    gap: 15px; /* Sedikit dikecilkan agar muat dengan padding baru */
+    gap: 15px; 
     align-items: center;
 }
 
@@ -45,25 +49,23 @@ nav a {
     font-size: 20px;
     font-weight: 500;
     transition: 0.3s;
-    padding: 8px 16px; /* Tambahan padding agar kotak rapi */
-    border-radius: 8px; /* Sudut membulat */
+    padding: 8px 16px; 
+    border-radius: 8px; 
     display: flex;
     align-items: center;
 }
 
 nav a:hover {
     color: #d4af37;
-    background-color: rgba(244, 180, 0, 0.1); /* Efek sentuh tipis */
+    background-color: rgba(244, 180, 0, 0.1); 
 }
 
-/* Gaya untuk menu yang sedang aktif */
 nav a.active {
-    background-color: #f4b400 !important; 
+    background-color: #f8c20f !important; 
     color: white !important;             
     font-weight: bold;
 }
 
-/* Gaya khusus tombol Login/Logout */
 .tombol-login {
     background: #5daa6c;
     color: white !important;
@@ -75,148 +77,213 @@ nav a.active {
 }
 
 .tombol-login:hover {
-    background: #144d32; /* Efek hover untuk tombol login */
-}
-/* HERO */
-.hero{
-    text-align:center;
-    padding:70px 20px 40px;
+    background: #144d32; 
 }
 
-.hero h1{
-    font-size:32px;
-    color:#1b5e20;
+
+/* ================= HERO BERITA (JUBAH BARU!) ================= */
+/* Kita buat class baru bernama hero-berita supaya tidak tabrakan dengan Home */
+.hero-berita {
+    position: relative;
+    width: 100%;
+    /* Tinggi hero section sedikit dipendekkan dari Home supaya pas untuk Berita */
+    height: 350px; 
+    
+    /* GANTI PATH GAMBAR INI JIKA PERLU (misal ../img/gedung.jpeg) */
+    background-image: url('../img/gedung.jpeg'); 
+    
+    background-size: cover;
+    background-position: center 20%;
+    background-repeat: no-repeat;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    color: white; /* Teks berubah jadi putih */
 }
 
-.hero p{
-    color:#666;
+.overlay-berita {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background: rgba(0,0,0,0.6); /* Overlay gelap 60% */
 }
 
-/* SEARCH BOX */
-.search-box{
-    display:flex;
-    justify-content:center;
-    margin-top:25px;
+.hero-content-berita {
+    position: relative;
+    z-index: 2;
 }
 
-.search-box input{
-    width:450px;
-    padding:14px;
-    border-radius:14px 0 0 14px;
-    border:1px solid #ddd;
-    outline:none;
+.hero-content-berita h1 {
+    font-size: 40px;
+    margin-bottom: 15px;
+    color: white; /* Paksa putih */
 }
 
-.search-box button{
-    padding:14px 25px;
-    border:none;
-    cursor:pointer;
-    background:linear-gradient(to right,#1b5e20,#2e7d32);
-    color:white;
-    border-radius:0 14px 14px 0;
+.hero-content-berita p {
+    font-size: 18px;
+    color: #e0e0e0; /* Putih agak abu-abu biar elegan */
+    margin-bottom: 25px;
 }
 
-/* LIST BERITA */
-.berita-list{
-    width:85%;
-    margin:auto;
-    padding:30px 0 80px;
+
+/* ================= SEARCH BOX (Di dalam Hero) ================= */
+.search-box {
+    display: flex;
+    justify-content: center;
 }
 
-/* CARD */
-.card{
-    display:flex;
-    gap:25px;
-    background:white;
-    padding:25px;
-    border-radius:22px;
-    margin-bottom:30px;
-    box-shadow:0 15px 40px rgba(0,0,0,0.06);
-    transition:0.3s;
+.search-box input {
+    width: 450px;
+    padding: 14px 20px;
+    border-radius: 25px 0 0 25px; /* Sisi kiri melengkung */
+    border: none;
+    outline: none;
+    font-size: 15px;
 }
 
-.card:hover{
-    transform:translateY(-6px);
+.search-box button {
+    padding: 14px 30px;
+    border: none;
+    cursor: pointer;
+    background: #0f5132; /* Warna hijau khas CSSMoRA */
+    color: white;
+    border-radius: 0 25px 25px 0; /* Sisi kanan melengkung */
+    font-weight: bold;
+    font-size: 15px;
+    transition: 0.3s;
 }
 
-.image-box{
-    position:relative;
+.search-box button:hover {
+    background: #f8c20f; /* Efek hover jadi kuning emas */
+    color: black;
 }
 
-.image-box img{
-    width:230px;
-    height:160px;
-    object-fit:cover;
-    border-radius:18px;
+
+/* ================= LIST BERITA ================= */
+.berita-list {
+    width: 100%; /* TADINYA 85%, kita perlebar jadi 95% supaya memanjang */
+    max-width: 1990px; /* Ini kuncinya biar TIDAK mepet ujung layar monitor */
+    margin: 40px auto 80px auto; /* 'auto' membuat posisinya selalu pas di tengah */
+}
+
+/* KOTAK PUTIH BERITA */
+.card {
+    display: flex;
+    gap: 25px;
+    background: white;
+    padding: 25px;
+    border-radius: 22px;
+    margin-bottom: 30px;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.08); 
+    transition: 0.3s;
+    width: 100%; /* Memastikan kotak putihya mengisi penuh ruang yang sudah kita perlebar tadi */
+}
+
+.card:hover {
+    transform: translateY(-8px); 
+    box-shadow: 0 15px 35px rgba(0,0,0,0.12);
+}
+
+
+/* IMAGE BOX */
+.image-box {
+    position: relative;
+    flex-shrink: 0; /* Mencegah gambar menyusut aneh */
+}
+
+.image-box img {
+    width: 250px; /* Sedikit diperlebar */
+    height: 170px; /* Sedikit dipertinggi */
+    object-fit: cover;
+    border-radius: 14px;
 }
 
 /* KATEGORI DI ATAS GAMBAR */
-.kategori{
-    position:absolute;
-    top:10px;
-    left:10px;
-    background:#c6a94b;
-    color:white;
-    padding:6px 12px;
-    font-size:12px;
-    border-radius:8px;
-    font-weight:600;
+.kategori {
+    position: absolute;
+    top: 15px;
+    left: 15px;
+    background: #f8c20f; /* Ganti dengan kuning CSSMoRA */
+    color: black;
+    padding: 6px 14px;
+    font-size: 12px;
+    border-radius: 8px;
+    font-weight: bold;
 }
 
-/* CONTENT */
-.content h3{
-    margin:0;
-    color:#1b5e20;
+
+/* CONTENT TEXT */
+.content {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
 }
 
-.tanggal{
-    font-size:14px;
-    color:#777;
-    margin:8px 0;
+.content h3 {
+    margin: 0;
+    color: #0f5132; /* Hijau tua */
+    font-size: 22px;
+    line-height: 1.4;
 }
 
-.sumber a{
-    color:#2e7d32;
-    font-weight:600;
-    text-decoration:none;
-}
-
-.sumber a:hover{
-    text-decoration:underline;
-}
-
-.btn-detail{
-    display:inline-block;
-    margin-top:12px;
-    color:#2e7d32;
-    font-weight:600;
-    text-decoration:none;
-}
-
-/* BACKGROUND GEDUNG */
-.bg-gedung{
-    position:fixed;
-    bottom:0;
-    left:0;
-    width:100%;
-    height:220px;
-    background:url('gedung.jpg') no-repeat center;
-    background-size:cover;
-    opacity:0.15;
-    z-index:-1;
-}
-
-.footer {
-    background: #ffffff; /* Menggunakan HEX solid agar pasti tidak transparan */
-    color: #1f5f3f;      /* Warna teks hijau tua yang tegas */
-    text-align: center;
-    padding: 20px 0;     /* Sedikit lebih tebal ukurannya */
+.tanggal {
     font-size: 14px;
-    font-weight: bold;   /* Menebalkan tulisan di footer */
+    color: #777;
+    margin: 8px 0;
+}
 
+.deskripsi-berita {
+    color: #555;
+    line-height: 1.6;
+    margin-bottom: 12px;
+}
+
+.sumber {
+    font-size: 14px;
+    color: #444;
+}
+
+.sumber a {
+    color: #0f5132;
+    font-weight: bold;
+    text-decoration: none;
+}
+
+.sumber a:hover {
+    text-decoration: underline;
+    color: #f8c20f;
+}
+
+.btn-detail {
+    display: inline-block;
+    margin-top: auto; /* Memaksa tombol turun ke bawah jika teks sedikit */
+    color: #f8c20f; /* Kuning CSSMoRA */
+    font-weight: 800;
+    text-decoration: none;
+    font-size: 15px;
+}
+
+.btn-detail:hover {
+    color: #0f5132;
+}
+
+/* BACKGROUND GEDUNG TRANSLUCENT BAWAH SAYA HAPUS */
+/* Karena kita sudah pakai Hero Section di atas, background samar di bawah justru akan membuat halaman terlihat ramai dan kotor. Jadi saya tiadakan. */
+
+
+/* ================= FOOTER ================= */
+.footer {
+    background: #ffffff; 
+    color: #1f5f3f;      
+    text-align: center;
+    padding: 20px 0;     
+    font-size: 14px;
+    font-weight: bold;   
     position: fixed;
     bottom: 0;
     left: 0;
     width: 100%;
     z-index: 9999;
+    box-shadow: 0 -5px 15px rgba(0, 0, 0, 0.1); 
 }
