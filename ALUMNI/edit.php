@@ -2,10 +2,6 @@
 session_start();
 
 // CEK LOGIN
-if(!isset($_SESSION['nia'])){
-    header("Location: ../login/login.php");
-    exit;
-}
 
 // CEK ROLE ADMIN
 if($_SESSION['role'] != "admin"){
