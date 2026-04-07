@@ -1,10 +1,6 @@
 <?php
 
-// Cek apakah user sudah login
-if(!isset($_SESSION['nia'])){
-    header("Location: ../login/login.php");
-    exit;
-}
+
 
 // KONEKSI DATABASE
 include "koneksi.php";

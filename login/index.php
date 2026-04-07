@@ -20,6 +20,9 @@ session_start();
             <a href="../ALUMNI/index.php">Alumni</a>
             <a href="../INFO/index.php">Info Kegiatan</a>
             <a href="../berita/index.php">Berita</a>
+            <a href="https://wa.me/6285705701024" target="_blank" title="Hubungi Admin">
+        <i class="fab fa-whatsapp" style="margin-right: 5px;"></i> Kontak Admin
+    </a>
 
             <?php 
             // Cek apakah user sudah login (menggunakan session 'nia')

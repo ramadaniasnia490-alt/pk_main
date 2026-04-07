@@ -63,23 +63,42 @@ if(isset($_POST['login'])){
         </div>
 
         <label>Password</label>
-        <div class="input-icon">
-            <i class="fa fa-lock"></i>
-            <input type="password" name="password" placeholder="Masukkan Password" required>
-        </div>
+<div class="input-icon">
+    <i class="fa fa-lock"></i>
+    <input type="password" name="password" id="password" placeholder="Masukkan Password" required>
+    <i class="fa fa-eye" id="togglePassword" style="cursor: pointer; position: absolute; right: 15px; top: 11px; color: #777;"></i>
+</div>
 
         <button type="submit" class="btn-login" name="login">MASUK</button>
 
-        <p class="register-text">
-            Belum punya akun? <a href="register.php">Daftar</a>
-            <br><br>
-            <a href="../home/index.php" style="color: #666; font-size: 13px; font-weight: normal; text-decoration: underline;">&larr; Kembali ke Halaman Utama</a>
-        </p>
+       <p class="register-text">
+    Belum punya akun? <a href="register.php">Daftar</a>
+    <br><br>
+    
+   
+    
+    <a href="../home/index.php" class="kembali-home">
+        <i class="fa fa-arrow-left"></i> Kembali ke Halaman Utama
+    </a>
+</p>
 
     </form>
 </div>
     <a href="https://wa.me/6285705701024?text=Halo%20Admin%20CSSMoRA,%20saya%20butuh%20bantuan%20terkait%20login%20web%20alumni." class="float-wa" target="_blank" title="Hubungi Admin">
     <i class="fab fa-whatsapp"></i>
 </a>
+<script>
+    const togglePassword = document.querySelector('#togglePassword');
+    const password = document.querySelector('#password');
+
+    togglePassword.addEventListener('click', function (e) {
+        // Berpindah tipe antara password dan text
+        const type = password.getAttribute('type') === 'password' ? 'text' : 'password';
+        password.setAttribute('type', type);
+        
+        // Berganti ikon antara mata terbuka dan mata tertutup
+        this.classList.toggle('fa-eye-slash');
+    });
+</script>
 </body>
 </html>

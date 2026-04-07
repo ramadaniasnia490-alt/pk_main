@@ -8,7 +8,6 @@ $halaman_sekarang = basename($_SERVER['PHP_SELF']);
 include "koneksi.php";
 
 // LOGIKA FILTER DAN PENCARIAN
-// Mengamankan SEMUA variabel input untuk mencegah SQL Injection
 $angkatan = isset($_GET['angkatan']) ? mysqli_real_escape_string($conn, $_GET['angkatan']) : '';
 $jurusan = isset($_GET['jurusan']) ? mysqli_real_escape_string($conn, $_GET['jurusan']) : '';
 $cari = isset($_GET['cari']) ? mysqli_real_escape_string($conn, $_GET['cari']) : '';
