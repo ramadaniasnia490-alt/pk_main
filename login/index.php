@@ -1,53 +1,143 @@
 <?php
 session_start();
+include "koneksi.php";
+
+// Mendefinisikan URL saat ini agar menu navbar tidak error
+$url_sekarang = $_SERVER['REQUEST_URI'];
+
+// Jika sudah login, langsung arahkan ke halaman yang sesuai
+if(isset($_SESSION['role'])){
+    if($_SESSION['role'] == 'admin'){
+        header("Location: dashboard/index.php");
+    } else {
+        header("Location: profil.php");
+    }
+    exit;
+}
+
+if(isset($_POST['login'])){
+    $input_user = mysqli_real_escape_string($conn, $_POST['nia']); 
+    $password = $_POST['password'];
+
+    // CEK ADMIN DULU
+    $query_admin = mysqli_query($conn, "SELECT * FROM admin WHERE username='$input_user'");
+    $data_admin = mysqli_fetch_assoc($query_admin);
+
+    if($data_admin){
+        if(password_verify($password, $data_admin['password'])){
+            $_SESSION['role'] = 'admin';
+            $_SESSION['nama'] = $data_admin['nama'];
+            header("Location: dashboard/index.php");
+            exit;
+        }
+    }
+
+    // KALAU BUKAN ADMIN, BARU CEK USER
+    $query_user = mysqli_query($conn, "SELECT * FROM users WHERE nia='$input_user'");
+    $data_user = mysqli_fetch_assoc($query_user);
+
+    if($data_user){
+        if(password_verify($password, $data_user['password'])){
+            $_SESSION['nia'] = $data_user['nia'];
+            $_SESSION['role'] = 'user';
+            header("Location: profil.php");
+            exit;
+        }
+    }
+    
+    echo "<script>alert('ID atau Password Salah!'); window.location='login.php';</script>";
+}
 ?>
 
 <!DOCTYPE html>
-<html>
+<html lang="id">
 <head>
-    <title>CSSMORA Alumni</title>
+    <meta charset="UTF-8">
+    <title>Login Akun - CSSMoRA</title>
+    
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="login.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    
+    <style>
+        /* Mengatur agar form berada di tengah-tengah antara navbar dan footer */
+        body { margin: 0; background: #f4f4f4; display: block; height: auto; }
+        .login-wrapper {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: calc(100vh - 140px); /* Tinggi layar dikurangi tinggi navbar & footer */
+            padding: 40px 20px;
+        }
+    </style>
 </head>
 <body>
 
-<!-- NAVBAR -->
-<header>
-    <div class="container nav">
-        <img src="../home/cssmora.jpeg" class="logo-img">
+    <header>
+        <div class="container nav">
+            <img src="../home/cssmora.jpeg" class="logo-img">
+            <nav>
+                
+                <a href="https://wa.me/6285705701024" target="_blank" title="Hubungi Admin">
+                    <i class="fab fa-whatsapp" style="margin-right: 5px;"></i> Kontak Admin
+                </a>
+            </nav>
+        </div>
+    </header>
 
-        <nav>
-            <a href="../home/index.php" class="<?php echo strpos($url_sekarang, '/home/') !== false ? 'active' : ''; ?>">Home</a>
-            <a href="../ALUMNI/index.php">Alumni</a>
-            <a href="../INFO/index.php">Info Kegiatan</a>
-            <a href="../berita/index.php">Berita</a>
-            <a href="https://wa.me/6285705701024" target="_blank" title="Hubungi Admin">
-        <i class="fab fa-whatsapp" style="margin-right: 5px;"></i> Kontak Admin
+    <div class="login-wrapper">
+        <div class="login-container">
+            <div class="login-header">LOGIN AKUN</div>
+
+            <form method="POST" action="">
+                <label>NIA</label>
+                <div class="input-icon">
+                    <i class="fa fa-user"></i>
+                    <input type="text" name="nia" placeholder="Masukkan NIA" required>
+                </div>
+
+                <label>Password</label>
+                <div class="input-icon" style="position: relative;">
+                    <i class="fa fa-lock"></i>
+                    <input type="password" name="password" id="password" placeholder="Masukkan Password" required>
+                    <i class="fa-regular fa-eye" id="togglePassword" style="cursor: pointer; position: absolute; right: 15px; top: 50%; transform: translateY(-50%); color: #777; z-index: 10;"></i>
+                </div>
+
+                <button type="submit" class="btn-login" name="login">MASUK</button>
+
+                <p class="register-text">
+                    Belum punya akun? <a href="register.php">Daftar</a>
+                    <br><br>
+                    <a href="../home/index.php" class="kembali-home">
+                        <i class="fa fa-arrow-left"></i> Kembali ke Halaman Utama
+                    </a>
+                </p>
+            </form>
+        </div>
+    </div>
+
+    <footer class="footer">
+        © 2019 UIN Alauddin Makassar. All Rights Reserved.
+    </footer>
+
+    <a href="https://wa.me/6285705701024?text=Halo%20Admin%20CSSMoRA,%20saya%20butuh%20bantuan%20terkait%20login%20web%20alumni." class="float-wa" target="_blank" title="Hubungi Admin">
+        <i class="fab fa-whatsapp"></i>
     </a>
 
-            <?php 
-            // Cek apakah user sudah login (menggunakan session 'nia')
-            if(isset($_SESSION['nia'])){ 
-            ?>
-                <a href="../login/dashboard/index.php">Dashboard</a>
-                <a href="../login/logout.php" class="login">Logout</a>
-            <?php } else { ?>
-                <a href="../login/index.php" class="login active">Login</a>
-            <?php } ?>
-        </nav>
-    </div>
-</header>
-<!-- HERO SECTION -->
-<div class="hero">
-    <h1>Selamat Datang di Website Alumni CSSMORA</h1>
-    <p>Sistem Informasi Alumni Modern</p>
+    <script>
+        const togglePassword = document.querySelector('#togglePassword');
+        const password = document.querySelector('#password');
 
-    <?php if(!isset($_SESSION['nia'])){ ?>
-        <a href="login.php" class="btn-hero">LOGIN SEKARANG</a>
-    <?php } ?>
-</div>
-<!-- FOOTER -->
-<footer class="footer">
-    © 2019 UIN Alauddin Makassar. All Rights Reserved.
-</footer>
+        togglePassword.addEventListener('click', function () {
+            // Tukar tipe input
+            const type = password.getAttribute('type') === 'password' ? 'text' : 'password';
+            password.setAttribute('type', type);
+            
+            // Tukar ikon mata
+            this.classList.toggle('fa-eye');
+            this.classList.toggle('fa-eye-slash');
+        });
+    </script>
+
 </body>
 </html>

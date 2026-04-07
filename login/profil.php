@@ -172,7 +172,7 @@ $data = mysqli_fetch_assoc($query);
                 <?php endif; ?>
 
                 <a href="profil.php" style="color: #d4af37;">Profil</a>
-<a href="logout.php" style="background-color: #dc3545; color: white; padding: 6px 16px; border-radius: 6px; text-decoration: none; font-weight: 500;">Logout</a>
+                <a href="logout.php" style="background-color: #dc3545; color: white; padding: 6px 16px; border-radius: 6px; text-decoration: none; font-weight: 500;">Logout</a>
                 <a href="index.php" class="login">Login</a>
             <?php endif; ?>
         </nav>
@@ -185,8 +185,7 @@ $data = mysqli_fetch_assoc($query);
         <div class="header-profil">
             <div class="profile-photo">
                 <?php if(!empty($data['foto'])): ?>
-                    <img src="../ALUMNI/<?php echo htmlspecialchars($data['foto']); ?>" alt="Foto Profil">
-                <?php else: ?>
+                    <img src="../ALUMNI/uploads/<?php echo htmlspecialchars($data['foto']); ?>" alt="Foto Profil">                <?php else: ?>
                     <span class="placeholder">👤</span>
                 <?php endif; ?>
             </div>

@@ -65,7 +65,7 @@ nav a:hover {
 
 nav a.active {
     background-color: #f8c20f !important; 
-    color: white !important;             
+    color: rgb(12, 12, 12) !important;             
     font-weight: bold;
 }
 
@@ -130,7 +130,7 @@ nav a.active {
 
 .input-cari-kuning {
     background-color: #f8c20f; 
-    color: white;              
+    color: rgb(9, 9, 9);              
     padding: 12px 35px;
     border-radius: 30px;       
     border: none;

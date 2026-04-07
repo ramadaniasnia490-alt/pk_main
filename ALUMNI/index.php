@@ -38,10 +38,11 @@ $query = mysqli_query($conn, $sql);
 </head>
 <body>
 
+<?php if(!isset($_GET['sembunyikan_nav']) || $_GET['sembunyikan_nav'] != 'ya'): ?>
 <header>
     <div class="pembungkus nav"> 
         <img src="../home/cssmora.jpeg" class="logo-img" alt="Logo">
-     <nav>
+        <nav>
             <?php $url_sekarang = $_SERVER['REQUEST_URI']; ?>
 
             <a href="../home/index.php" class="<?php echo strpos($url_sekarang, '/home/') !== false ? 'active' : ''; ?>">Home</a>
@@ -65,18 +66,23 @@ $query = mysqli_query($conn, $sql);
         </nav>
     </div>
 </header>
-
+<?php endif; ?>
 <div class="pembungkus">
     <h2 class="judul-halaman">Data Alumni CSSMoRA</h2>
 
     <?php if(isset($_SESSION['role']) && $_SESSION['role'] == 'admin'): ?>
     <div style="margin-bottom: 20px;"> 
-        <a href="create.php" class="tombol-tambah">+ Tambah Alumni</a>
+        <a href="create.php<?php echo isset($_GET['sembunyikan_nav']) ? '?sembunyikan_nav=ya' : ''; ?>" class="tombol-tambah">+ Tambah Alumni</a>
     </div>
     <?php endif; ?>
 </div>
 
 <form method="GET" class="pembungkus kotak-filter">
+    
+    <?php if(isset($_GET['sembunyikan_nav']) && $_GET['sembunyikan_nav'] == 'ya'): ?>
+        <input type="hidden" name="sembunyikan_nav" value="ya">
+    <?php endif; ?>
+
     <div class="bagian-kiri-filter">
         <label>Angkatan:</label>
         <select name="angkatan">
@@ -114,7 +120,7 @@ $query = mysqli_query($conn, $sql);
 </div>
 
 <div class="pembungkus halaman-alumni">
-    </div>
+    
 <?php while($data = mysqli_fetch_assoc($query)): ?>
 
     <div class="kotak-alumni">
@@ -130,11 +136,11 @@ $query = mysqli_query($conn, $sql);
         </div>
 
         <div class="bagian-tombol">
-            <a href="detail.php?id=<?php echo $data['id']; ?>" class="tombol-profil">Profil</a>
+            <a href="detail.php?id=<?php echo $data['id']; ?><?php echo isset($_GET['sembunyikan_nav']) ? '&sembunyikan_nav=ya' : ''; ?>" class="tombol-profil">Profil</a>
             
             <?php if(isset($_SESSION['role']) && $_SESSION['role'] == 'admin'): ?>
-                <a href="edit.php?id=<?php echo $data['id']; ?>" class="tombol-edit">Edit</a>
-                <a href="delete.php?id=<?php echo $data['id']; ?>" class="tombol-hapus"
+                <a href="edit.php?id=<?php echo $data['id']; ?><?php echo isset($_GET['sembunyikan_nav']) ? '&sembunyikan_nav=ya' : ''; ?>" class="tombol-edit">Edit</a>
+                <a href="delete.php?id=<?php echo $data['id']; ?><?php echo isset($_GET['sembunyikan_nav']) ? '&sembunyikan_nav=ya' : ''; ?>" class="tombol-hapus"
                 onclick="return confirm('Yakin ingin menghapus data ini?')">Hapus</a>
             <?php endif; ?>
         </div>
@@ -143,9 +149,10 @@ $query = mysqli_query($conn, $sql);
 <?php endwhile; ?>
 </div>
 
+<?php if(!isset($_GET['sembunyikan_nav']) || $_GET['sembunyikan_nav'] != 'ya'): ?>
 <footer class="footer">
     © 2019 UIN Alauddin Makassar. All Rights Reserved.
 </footer>
-
+<?php endif; ?>
 </body>
 </html>

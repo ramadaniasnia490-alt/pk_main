@@ -63,7 +63,7 @@ nav a:hover {
 /* Gaya untuk menu yang sedang aktif */
 nav a.active {
     background-color: #f3bd28e6 !important; 
-    color: white !important;             
+    color: rgb(9, 9, 9) !important;             
     font-weight: bold;
 }
 

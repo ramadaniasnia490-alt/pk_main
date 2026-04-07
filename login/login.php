@@ -2,6 +2,19 @@
 session_start();
 include "koneksi.php";
 
+// Mendefinisikan URL saat ini agar menu navbar tidak error
+$url_sekarang = $_SERVER['REQUEST_URI'];
+
+// Jika sudah login, langsung arahkan ke halaman yang sesuai
+if(isset($_SESSION['role'])){
+    if($_SESSION['role'] == 'admin'){
+        header("Location: dashboard/index.php");
+    } else {
+        header("Location: profil.php");
+    }
+    exit;
+}
+
 if(isset($_POST['login'])){
     $input_user = mysqli_real_escape_string($conn, $_POST['nia']); 
     $password = $_POST['password'];
@@ -43,62 +56,88 @@ if(isset($_POST['login'])){
     <title>Login Akun - CSSMoRA</title>
     
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
-    
     <link rel="stylesheet" href="login.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    
+    <style>
+        /* Mengatur agar form berada di tengah-tengah antara navbar dan footer */
+        body { margin: 0; background: #f4f4f4; display: block; height: auto; }
+        .login-wrapper {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: calc(100vh - 140px); /* Tinggi layar dikurangi tinggi navbar & footer */
+            padding: 40px 20px;
+        }
+    </style>
 </head>
-<body class="login-background">
+<body>
 
-<div class="login-container">
-    <div class="login-header">
-        LOGIN AKUN
+    <header>
+        <div class="container nav">
+            <img src="../home/cssmora.jpeg" class="logo-img">
+            <nav>
+                
+                <a href="https://wa.me/6285705701024" target="_blank" title="Hubungi Admin">
+                    <i class="fab fa-whatsapp" style="margin-right: 5px;"></i> Kontak Admin
+                </a>
+            </nav>
+        </div>
+    </header>
+
+    <div class="login-wrapper">
+        <div class="login-container">
+            <div class="login-header">LOGIN AKUN</div>
+
+            <form method="POST" action="">
+                <label>NIA</label>
+                <div class="input-icon">
+                    <i class="fa fa-user"></i>
+                    <input type="text" name="nia" placeholder="Masukkan NIA" required>
+                </div>
+
+                <label>Password</label>
+                <div class="input-icon" style="position: relative;">
+                    <i class="fa fa-lock"></i>
+                    <input type="password" name="password" id="password" placeholder="Masukkan Password" required>
+                    <i class="fa-regular fa-eye" id="togglePassword" style="cursor: pointer; position: absolute; right: 15px; top: 50%; transform: translateY(-50%); color: #777; z-index: 10;"></i>
+                </div>
+
+                <button type="submit" class="btn-login" name="login">MASUK</button>
+
+                <p class="register-text">
+                    Belum punya akun? <a href="register.php">Daftar</a>
+                    <br><br>
+                    <a href="../home/index.php" class="kembali-home">
+                        <i class="fa fa-arrow-left"></i> Kembali ke Halaman Utama
+                    </a>
+                </p>
+            </form>
+        </div>
     </div>
 
-    <form method="POST" action="">
+    <footer class="footer">
+        © 2019 UIN Alauddin Makassar. All Rights Reserved.
+    </footer>
 
-        <label>NIA</label>
-        <div class="input-icon">
-            <i class="fa fa-user"></i>
-            <input type="text" name="nia" placeholder="Masukkan NIA" required>
-        </div>
-
-        <label>Password</label>
-<div class="input-icon">
-    <i class="fa fa-lock"></i>
-    <input type="password" name="password" id="password" placeholder="Masukkan Password" required>
-    <i class="fa fa-eye" id="togglePassword" style="cursor: pointer; position: absolute; right: 15px; top: 11px; color: #777;"></i>
-</div>
-
-        <button type="submit" class="btn-login" name="login">MASUK</button>
-
-       <p class="register-text">
-    Belum punya akun? <a href="register.php">Daftar</a>
-    <br><br>
-    
-   
-    
-    <a href="../home/index.php" class="kembali-home">
-        <i class="fa fa-arrow-left"></i> Kembali ke Halaman Utama
-    </a>
-</p>
-
-    </form>
-</div>
     <a href="https://wa.me/6285705701024?text=Halo%20Admin%20CSSMoRA,%20saya%20butuh%20bantuan%20terkait%20login%20web%20alumni." class="float-wa" target="_blank" title="Hubungi Admin">
-    <i class="fab fa-whatsapp"></i>
-</a>
-<script>
-    const togglePassword = document.querySelector('#togglePassword');
-    const password = document.querySelector('#password');
+        <i class="fab fa-whatsapp"></i>
+    </a>
 
-    togglePassword.addEventListener('click', function (e) {
-        // Berpindah tipe antara password dan text
-        const type = password.getAttribute('type') === 'password' ? 'text' : 'password';
-        password.setAttribute('type', type);
-        
-        // Berganti ikon antara mata terbuka dan mata tertutup
-        this.classList.toggle('fa-eye-slash');
-    });
-</script>
+    <script>
+        const togglePassword = document.querySelector('#togglePassword');
+        const password = document.querySelector('#password');
+
+        togglePassword.addEventListener('click', function () {
+            // Tukar tipe input
+            const type = password.getAttribute('type') === 'password' ? 'text' : 'password';
+            password.setAttribute('type', type);
+            
+            // Tukar ikon mata
+            this.classList.toggle('fa-eye');
+            this.classList.toggle('fa-eye-slash');
+        });
+    </script>
+
 </body>
 </html>

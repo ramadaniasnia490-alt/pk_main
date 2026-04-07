@@ -29,10 +29,11 @@ if(isset($_GET['cari'])){
 </head>
 <body>
 
+<?php if(!isset($_GET['sembunyikan_nav']) || $_GET['sembunyikan_nav'] != 'ya'): ?>
 <header>
     <div class="pembungkus nav"> 
         <img src="../home/cssmora.jpeg" class="logo-img" alt="Logo">
-     <nav>
+        <nav>
             <?php $url_sekarang = $_SERVER['REQUEST_URI']; ?>
 
             <a href="../home/index.php" class="<?php echo strpos($url_sekarang, '/home/') !== false ? 'active' : ''; ?>">Home</a>
@@ -56,7 +57,7 @@ if(isset($_GET['cari'])){
         </nav>
     </div>
 </header>
-
+<?php endif; ?>
 <section class="hero-berita">
     <div class="overlay-berita"></div>
     <div class="hero-content-berita">
@@ -64,7 +65,11 @@ if(isset($_GET['cari'])){
         <p>Berita terbaru seputar kegiatan, prestasi, dan kabar penting alumni CSSMoRA.</p>
         
         <form action="" method="GET" class="search-box">
-            <input type="text" name="cari" placeholder="Cari berita..." value="">
+            <?php if(isset($_GET['sembunyikan_nav']) && $_GET['sembunyikan_nav'] == 'ya'): ?>
+                <input type="hidden" name="sembunyikan_nav" value="ya">
+            <?php endif; ?>
+
+            <input type="text" name="cari" placeholder="Cari berita..." value="<?php echo isset($_GET['cari']) ? htmlspecialchars($_GET['cari']) : ''; ?>">
             <button type="submit">Cari</button>
         </form>
     </div>
@@ -74,7 +79,7 @@ if(isset($_GET['cari'])){
 
     <?php if(isset($_SESSION['role']) && $_SESSION['role'] == 'admin'): ?>
         <div style="text-align: right;">
-            <a href="create.php" class="btn-tambah">+ Tulis Berita Baru</a>
+            <a href="create.php<?php echo isset($_GET['sembunyikan_nav']) ? '?sembunyikan_nav=ya' : ''; ?>" class="btn-tambah">+ Tulis Berita Baru</a>
         </div>
     <?php endif; ?>
 
@@ -103,12 +108,12 @@ if(isset($_GET['cari'])){
             </p>
             <?php endif; ?>
 
-            <a href="detail.php?id=<?php echo $row['id']; ?>" class="btn-detail">Selengkapnya &rarr;</a>
+            <a href="detail.php?id=<?php echo $row['id']; ?><?php echo isset($_GET['sembunyikan_nav']) ? '&sembunyikan_nav=ya' : ''; ?>" class="btn-detail">Selengkapnya &rarr;</a>
 
             <?php if(isset($_SESSION['role']) && $_SESSION['role'] == 'admin'): ?>
                 <div class="admin-controls">
-                    <a href="edit.php?id=<?php echo $row['id']; ?>" class="btn-edit">Edit</a>
-                    <a href="delete.php?id=<?php echo $row['id']; ?>" class="btn-hapus" onclick="return confirm('Yakin ingin menghapus berita ini?');">Hapus</a>
+                    <a href="edit.php?id=<?php echo $row['id']; ?><?php echo isset($_GET['sembunyikan_nav']) ? '&sembunyikan_nav=ya' : ''; ?>" class="btn-edit">Edit</a>
+                    <a href="delete.php?id=<?php echo $row['id']; ?><?php echo isset($_GET['sembunyikan_nav']) ? '&sembunyikan_nav=ya' : ''; ?>" class="btn-hapus" onclick="return confirm('Yakin ingin menghapus berita ini?');">Hapus</a>
                 </div>
             <?php endif; ?>
         </div>
@@ -125,9 +130,10 @@ if(isset($_GET['cari'])){
 
 <div class="bg-gedung"></div>
 
+<?php if(!isset($_GET['sembunyikan_nav']) || $_GET['sembunyikan_nav'] != 'ya'): ?>
 <footer class="footer">
     © 2026 UIN Alauddin Makassar. All Rights Reserved.
 </footer>
-
+<?php endif; ?>
 </body>
 </html>

@@ -1,11 +1,6 @@
 <?php
 session_start();
 
-// CEK SUDAH LOGIN ATAU BELUM
-if(!isset($_SESSION['nia'])){
-    header("Location: ../login/login.php");
-    exit;
-}
 
 // CEK APAKAH DIA ADMIN
 if($_SESSION['role'] != "admin"){

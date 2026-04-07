@@ -14,14 +14,15 @@ if(isset($_GET['cari'])){
 <html lang="id">
 <head>
     <title>Info Kegiatan CSSMoRA</title>
-    <link rel="stylesheet" href="info.css">
+    <link rel="stylesheet" href="info.css?v=<?php echo time(); ?>">
 </head>
 <body>
 
+<?php if(!isset($_GET['sembunyikan_nav']) || $_GET['sembunyikan_nav'] != 'ya'): ?>
 <header>
     <div class="pembungkus nav"> 
         <img src="../home/cssmora.jpeg" class="logo-img" alt="Logo">
-       <nav>
+        <nav>
             <?php $url_sekarang = $_SERVER['REQUEST_URI']; ?>
 
             <a href="../home/index.php" class="<?php echo strpos($url_sekarang, '/home/') !== false ? 'active' : ''; ?>">Home</a>
@@ -45,11 +46,15 @@ if(isset($_GET['cari'])){
         </nav>
     </div>
 </header>
-
+<?php endif; ?>
 <section class="hero">
     <h1>Info Kegiatan Organisasi CSSMoRA</h1>
     <p>Event dan kegiatan terbaru untuk alumni</p>
     <form method="GET" class="search-box">
+        <?php if(isset($_GET['sembunyikan_nav']) && $_GET['sembunyikan_nav'] == 'ya'): ?>
+            <input type="hidden" name="sembunyikan_nav" value="ya">
+        <?php endif; ?>
+        
         <input type="text" name="cari" placeholder="Cari kegiatan..." value="<?= htmlspecialchars($cari) ?>">
         <button type="submit">Cari</button>
     </form>
@@ -62,7 +67,7 @@ if(isset($_GET['cari'])){
     <p class="sub">Info Kegiatan Terkini CSSMoRA</p>
 
     <?php if(isset($_SESSION['role']) && $_SESSION['role'] == 'admin'): ?>
-        <a href="create.php" class="btn-tambah">+ Tambah Kegiatan Baru</a>
+        <a href="create.php<?php echo isset($_GET['sembunyikan_nav']) ? '?sembunyikan_nav=ya' : ''; ?>" class="btn-tambah">+ Tambah Kegiatan Baru</a>
     <?php endif; ?>
 
     <?php 
@@ -88,10 +93,11 @@ if(isset($_GET['cari'])){
             <p><?php echo substr(htmlspecialchars($row['deskripsi']), 0, 100); ?>...</p>
             
             <div class="admin-controls">
-                <a href="detail.php?id=<?php echo $row['id']; ?>" class="btn" style="margin-top: 0;">Detail</a>
+                <a href="detail.php?id=<?php echo $row['id']; ?><?php echo isset($_GET['sembunyikan_nav']) ? '&sembunyikan_nav=ya' : ''; ?>" class="btn" style="margin-top: 0;">Detail</a>
+                
                 <?php if(isset($_SESSION['role']) && $_SESSION['role'] == 'admin'): ?>
-                    <a href="edit.php?id=<?php echo $row['id']; ?>" class="btn-edit">Edit</a>
-                    <a href="delete.php?id=<?php echo $row['id']; ?>" class="btn-hapus" onclick="return confirm('Yakin ingin menghapus?');">Hapus</a>
+                    <a href="edit.php?id=<?php echo $row['id']; ?><?php echo isset($_GET['sembunyikan_nav']) ? '&sembunyikan_nav=ya' : ''; ?>" class="btn-edit">Edit</a>
+                    <a href="delete.php?id=<?php echo $row['id']; ?><?php echo isset($_GET['sembunyikan_nav']) ? '&sembunyikan_nav=ya' : ''; ?>" class="btn-hapus" onclick="return confirm('Yakin ingin menghapus?');">Hapus</a>
                 <?php endif; ?>
             </div>
         </div>
@@ -105,7 +111,7 @@ if(isset($_GET['cari'])){
     </h3>
     
     <?php if(isset($_SESSION['role']) && $_SESSION['role'] == 'admin') { ?>
-        <a href="tambah_dokumentasi.php" style="background: #f8c20f; color: #144d32; padding: 8px 15px; border-radius: 5px; text-decoration: none; font-weight: bold; display: inline-block; margin-bottom: 15px; font-size: 14px;">
+        <a href="tambah_dokumentasi.php<?php echo isset($_GET['sembunyikan_nav']) ? '?sembunyikan_nav=ya' : ''; ?>" style="background: #f8c20f; color: #144d32; padding: 8px 15px; border-radius: 5px; text-decoration: none; font-weight: bold; display: inline-block; margin-bottom: 15px; font-size: 14px;">
             + Tambah Dokumentasi
         </a>
     <?php } ?>
@@ -124,8 +130,8 @@ if(isset($_GET['cari'])){
            <?php if(isset($_SESSION['role']) && $_SESSION['role'] == 'admin') { ?>
     
     <div style="margin-top: 15px; text-align: center; border-top: 2px dashed #eee; padding-top: 15px;">
-        <a href="edit_dokumentasi.php?id=<?= $id_gal; ?>" style="background: #ffc107; color: black; padding: 8px 20px; border-radius: 5px; text-decoration: none; font-weight: bold; margin-right: 10px; display: inline-block;">EDIT</a>
-        <a href="hapus_dokumentasi.php?id=<?= $id_gal; ?>" style="background: #dc3545; color: white; padding: 8px 20px; border-radius: 5px; text-decoration: none; font-weight: bold; display: inline-block;" onclick="return confirm('Yakin hapus foto ini?');">HAPUS</a>
+        <a href="edit_dokumentasi.php?id=<?= $id_gal; ?><?php echo isset($_GET['sembunyikan_nav']) ? '&sembunyikan_nav=ya' : ''; ?>" style="background: #ffc107; color: black; padding: 8px 20px; border-radius: 5px; text-decoration: none; font-weight: bold; margin-right: 10px; display: inline-block;">EDIT</a>
+        <a href="hapus_dokumentasi.php?id=<?= $id_gal; ?><?php echo isset($_GET['sembunyikan_nav']) ? '&sembunyikan_nav=ya' : ''; ?>" style="background: #dc3545; color: white; padding: 8px 20px; border-radius: 5px; text-decoration: none; font-weight: bold; display: inline-block;" onclick="return confirm('Yakin hapus foto ini?');">HAPUS</a>
     </div>
 
 <?php } ?>
@@ -139,8 +145,11 @@ if(isset($_GET['cari'])){
     ?>
 </div>
 </section>
+
+<?php if(!isset($_GET['sembunyikan_nav']) || $_GET['sembunyikan_nav'] != 'ya'): ?>
 <footer class="footer">
     © 2019 UIN Alauddin Makassar. All Rights Reserved.
 </footer>
+<?php endif; ?>
 </body>
 </html>

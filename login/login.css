@@ -269,38 +269,10 @@ transform:translateY(-5px);
     font-weight:500;
 }
 
-/* ================= FLOATING WHATSAPP BUTTON ================= */
-.float-wa {
-    position: fixed;
-    width: 60px;
-    height: 60px;
-    bottom: 40px;
-    right: 40px;
-    background-color: #25d366; /* Hijau khas WhatsApp */
-    color: #FFF;
-    border-radius: 50px;
-    text-align: center;
-    font-size: 35px;
-    box-shadow: 2px 4px 15px rgba(0,0,0,0.2);
-    z-index: 1000;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    text-decoration: none;
-    transition: all 0.3s ease;
-}
 
-.float-wa:hover {
-    background-color: #20b858;
-    color: #fff;
-    transform: translateY(-5px) scale(1.05); /* Efek naik dan membesar saat disorot */
-    box-shadow: 2px 8px 20px rgba(0,0,0,0.3);
-}
 
-/* Pastikan logo WA ada di tengah persis */
-.float-wa i {
-    margin-top: 2px;
-}
+
+
 
 /* Tombol WA Melayang */
 .float-wa {
