@@ -2,7 +2,6 @@
 session_start();
 include "../login/koneksi.php";
 
-// INI KUNCI YANG BENAR
 if(!isset($_SESSION['role']) || $_SESSION['role'] != 'admin'){
     echo "<script>alert('Akses Ditolak!'); window.location='index.php';</script>";
     exit;
@@ -50,7 +49,7 @@ if(isset($_POST['simpan'])){
             <input type="date" name="tanggal" required>
 
             <label>Isi Berita</label>
-            <textarea name="isi_berita" rows="10" required></textarea>
+            <textarea name="isi_berita" id="isi_berita" rows="10" required></textarea>
 
             <label>Link Sumber (Opsional)</label>
             <input type="text" name="sumber" placeholder="Contoh: https://cssmora.or.id...">
@@ -62,5 +61,17 @@ if(isset($_POST['simpan'])){
             <a href="index.php" class="btn-batal">Batal & Kembali</a>
         </form>
     </div>
+
+    <!-- ✅ Script agar paste teks bisa masuk ke textarea -->
+    <script>
+        document.querySelectorAll('textarea').forEach(function(el) {
+            el.addEventListener('paste', function(e) {
+                e.preventDefault();
+                var text = (e.clipboardData || window.clipboardData).getData('text/plain');
+                document.execCommand('insertText', false, text);
+            });
+        });
+    </script>
+
 </body>
 </html>

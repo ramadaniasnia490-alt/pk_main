@@ -125,8 +125,12 @@ $query = mysqli_query($conn, $sql);
 
     <div class="kotak-alumni">
         <div class="bagian-foto">
-            <img src="foto.webp" alt="Foto Profil">
-        </div>
+    <?php if(!empty($data['foto'])): ?>
+        <img src="uploads/<?php echo htmlspecialchars($data['foto']); ?>" alt="Foto Profil" style="width:100%; height:100%; object-fit:cover;">
+    <?php else: ?>
+        <img src="foto.webp" alt="Foto Profil">
+    <?php endif; ?>
+</div>
 
         <div class="bagian-info">
             <h3><?php echo htmlspecialchars($data['nama']); ?></h3>

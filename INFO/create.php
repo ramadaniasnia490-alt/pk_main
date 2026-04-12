@@ -2,7 +2,6 @@
 session_start();
 include "../login/koneksi.php";
 
-// INI KUNCI YANG BENAR
 if(!isset($_SESSION['role']) || $_SESSION['role'] != 'admin'){
     echo "<script>alert('Akses Ditolak!'); window.location='index.php';</script>";
     exit;
@@ -13,12 +12,11 @@ include "koneksi.php";
 if(isset($_POST['simpan'])){
     $judul     = mysqli_real_escape_string($conn, $_POST['judul']);
     $kategori  = mysqli_real_escape_string($conn, $_POST['kategori']);
-    $tanggal   = mysqli_real_escape_string($conn, $_POST['tanggal']); // Ini variabelnya
+    $tanggal   = mysqli_real_escape_string($conn, $_POST['tanggal']);
     $waktu     = mysqli_real_escape_string($conn, $_POST['waktu']);
     $lokasi    = mysqli_real_escape_string($conn, $_POST['lokasi']);
     $deskripsi = mysqli_real_escape_string($conn, $_POST['deskripsi']);
 
-    // PERBAIKAN: Gunakan nama kolom 'tanggal_kegiatan' dan variabel '$tanggal'
     $query_kegiatan = mysqli_query($conn, "INSERT INTO kegiatan (judul, kategori, tanggal_kegiatan, waktu, lokasi, deskripsi) 
                                            VALUES ('$judul', '$kategori', '$tanggal', '$waktu', '$lokasi', '$deskripsi')");
     
@@ -41,7 +39,6 @@ if(isset($_POST['simpan'])){
         }
         echo "<script>alert('Kegiatan dan foto berhasil ditambahkan!'); window.location='index.php';</script>";
     } else {
-        // Tips: Tambahkan mysqli_error agar tahu persis salahnya di mana jika gagal
         echo "Error: " . mysqli_error($conn);
     }
 }
@@ -88,7 +85,7 @@ if(isset($_POST['simpan'])){
             <input type="text" name="lokasi" required>
 
             <label>Deskripsi Lengkap</label>
-            <textarea name="deskripsi" rows="6" required></textarea>
+            <textarea name="deskripsi" id="deskripsi" rows="6" placeholder="Ketik atau paste deskripsi di sini..."></textarea>
 
             <label>Upload Foto (Bisa pilih lebih dari satu file sekaligus)</label>
             <input type="file" name="foto[]" multiple accept="image/*" required>
@@ -97,5 +94,40 @@ if(isset($_POST['simpan'])){
             <a href="index.php" class="btn-batal">Batal & Kembali</a>
         </form>
     </div>
+
+    <script>
+        const textarea = document.getElementById('deskripsi');
+
+        textarea.addEventListener('paste', async function(e) {
+            e.preventDefault();
+
+            let text = '';
+
+            // Cara modern (async clipboard API)
+            if (navigator.clipboard && navigator.clipboard.readText) {
+                try {
+                    text = await navigator.clipboard.readText();
+                } catch (err) {
+                    // Fallback ke cara lama jika clipboard API diblokir
+                    text = (e.clipboardData || window.clipboardData).getData('text/plain');
+                }
+            } else {
+                // Fallback untuk browser lama
+                text = (e.clipboardData || window.clipboardData).getData('text/plain');
+            }
+
+            // Sisipkan teks di posisi kursor
+            const start = textarea.selectionStart;
+            const end   = textarea.selectionEnd;
+            const before = textarea.value.substring(0, start);
+            const after  = textarea.value.substring(end);
+
+            textarea.value = before + text + after;
+
+            // Pindahkan kursor ke akhir teks yang baru di-paste
+            textarea.selectionStart = textarea.selectionEnd = start + text.length;
+        });
+    </script>
+
 </body>
 </html>
