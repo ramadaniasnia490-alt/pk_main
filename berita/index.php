@@ -51,7 +51,7 @@ if(isset($_GET['cari'])){
             
             <?php else: ?>
                 
-                <a href="../login/index.php" style="background: #1f5f3f; color: white; padding: 8px 15px; border-radius: 5px; font-weight: bold; text-decoration: none; margin-left: 15px;">Login</a>
+                <a href="../login/index.php" class="tombol-login" style="margin-left: 15px;">Login</a>
                 
             <?php endif; ?>
         </nav>

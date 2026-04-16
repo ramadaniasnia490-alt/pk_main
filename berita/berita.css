@@ -7,15 +7,16 @@
 
 body{
     font-family: Arial, Helvetica, sans-serif;
-background:#f2f9f3;
+    background:#f2f9f3;
     padding-bottom: 70px;
 }
 
-/* ================= NAVBAR (SAMA DENGAN HOME) ================= */
+/* ================= NAVBAR ================= */
+/* ================= NAVBAR ================= */
 header {
     background: #ffffff;
     padding: 13px 0;
-    border-bottom: 5px solid #f8c20f;
+    border-bottom: 5px solid #fcdf07; /* Menyamakan garis bawah kuning cerah */
     position: sticky;
     top: 0;
     z-index: 9999;
@@ -44,7 +45,7 @@ nav {
 }
 
 nav a {
-    color: #1f5f3f;
+    color: #0b5244; /* Warna teks hijau gelap */
     text-decoration: none;
     font-size: 20px;
     font-weight: 500;
@@ -56,19 +57,19 @@ nav a {
 }
 
 nav a:hover {
-    color: #d4af37;
-    background-color: rgba(244, 180, 0, 0.1); 
+    color: #073530;
+    background-color: rgba(11, 82, 68, 0.1); /* Efek hover hijau gelap transparan */
 }
 
 nav a.active {
-    background-color: #f8c20f !important; 
-    color: rgb(6, 6, 6) !important;             
+    background-color: #0b5244 !important; /* Latar aktif hijau gelap */
+    color: #ffffff !important;             /* Teks aktif putih */
     font-weight: bold;
 }
 
 .tombol-login {
-    background: #5daa6c;
-    color: white !important;
+    background: #F5C400; /* Latar tombol kuning cerah */
+    color: #4a3800 !important; /* Teks kecoklatan */
     padding: 8px 18px !important;
     border-radius: 8px;
     text-decoration: none;
@@ -77,21 +78,15 @@ nav a.active {
 }
 
 .tombol-login:hover {
-    background: #144d32; 
+    background: #d4a800; /* Kuning lebih gelap saat di-hover */
 }
 
-
-/* ================= HERO BERITA (JUBAH BARU!) ================= */
-/* Kita buat class baru bernama hero-berita supaya tidak tabrakan dengan Home */
+/* ================= HERO BERITA ================= */
 .hero-berita {
     position: relative;
     width: 100%;
-    /* Tinggi hero section sedikit dipendekkan dari Home supaya pas untuk Berita */
     height: 350px; 
-    
-    /* GANTI PATH GAMBAR INI JIKA PERLU (misal ../img/gedung.jpeg) */
     background-image: url('../img/gedung.jpeg'); 
-    
     background-size: cover;
     background-position: center 20%;
     background-repeat: no-repeat;
@@ -99,14 +94,14 @@ nav a.active {
     align-items: center;
     justify-content: center;
     text-align: center;
-    color: white; /* Teks berubah jadi putih */
+    color: white;
 }
 
 .overlay-berita {
     position: absolute;
     width: 100%;
     height: 100%;
-    background: rgba(0,0,0,0.6); /* Overlay gelap 60% */
+    background: rgba(0,0,0,0.6);
 }
 
 .hero-content-berita {
@@ -117,17 +112,16 @@ nav a.active {
 .hero-content-berita h1 {
     font-size: 40px;
     margin-bottom: 15px;
-    color: white; /* Paksa putih */
+    color: white;
 }
 
 .hero-content-berita p {
     font-size: 18px;
-    color: #e0e0e0; /* Putih agak abu-abu biar elegan */
+    color: #e0e0e0;
     margin-bottom: 25px;
 }
 
-
-/* ================= SEARCH BOX (Di dalam Hero) ================= */
+/* ================= SEARCH BOX ================= */
 .search-box {
     display: flex;
     justify-content: center;
@@ -136,38 +130,41 @@ nav a.active {
 .search-box input {
     width: 450px;
     padding: 14px 20px;
-    border-radius: 25px 0 0 25px; /* Sisi kiri melengkung */
-    border: none;
+    border-radius: 25px 0 0 25px;
+    border: 2px solid transparent;
     outline: none;
-    font-size: 15px;
+    transition: all 0.4s ease;
 }
 
+.search-box input:focus {
+    width: 520px;
+    border: 2px solid #f8c20f;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+}
 .search-box button {
     padding: 14px 30px;
     border: none;
     cursor: pointer;
-    background: #0f5132; /* Warna hijau khas CSSMoRA */
+    background: #0f5132;
     color: white;
-    border-radius: 0 25px 25px 0; /* Sisi kanan melengkung */
+    border-radius: 0 25px 25px 0;
     font-weight: bold;
     font-size: 15px;
     transition: 0.3s;
 }
 
 .search-box button:hover {
-    background: #f8c20f; /* Efek hover jadi kuning emas */
+    background: #f8c20f;
     color: black;
 }
 
-
 /* ================= LIST BERITA ================= */
 .berita-list {
-    width: 100%; /* TADINYA 85%, kita perlebar jadi 95% supaya memanjang */
-    max-width: 1990px; /* Ini kuncinya biar TIDAK mepet ujung layar monitor */
-    margin: 40px auto 80px auto; /* 'auto' membuat posisinya selalu pas di tengah */
+    width: 100%;
+    max-width: 1990px;
+    margin: 40px auto 80px auto;
 }
 
-/* KOTAK PUTIH BERITA */
 .card {
     display: flex;
     gap: 25px;
@@ -177,7 +174,7 @@ nav a.active {
     margin-bottom: 30px;
     box-shadow: 0 10px 25px rgba(0,0,0,0.08); 
     transition: 0.3s;
-    width: 100%; /* Memastikan kotak putihya mengisi penuh ruang yang sudah kita perlebar tadi */
+    width: 100%;
 }
 
 .card:hover {
@@ -185,26 +182,23 @@ nav a.active {
     box-shadow: 0 15px 35px rgba(0,0,0,0.12);
 }
 
-
-/* IMAGE BOX */
 .image-box {
     position: relative;
-    flex-shrink: 0; /* Mencegah gambar menyusut aneh */
+    flex-shrink: 0;
 }
 
 .image-box img {
-    width: 250px; /* Sedikit diperlebar */
-    height: 170px; /* Sedikit dipertinggi */
+    width: 250px;
+    height: 170px;
     object-fit: cover;
     border-radius: 14px;
 }
 
-/* KATEGORI DI ATAS GAMBAR */
 .kategori {
     position: absolute;
     top: 15px;
     left: 15px;
-    background: #f8c20f; /* Ganti dengan kuning CSSMoRA */
+    background: #f8c20f;
     color: black;
     padding: 6px 14px;
     font-size: 12px;
@@ -212,8 +206,6 @@ nav a.active {
     font-weight: bold;
 }
 
-
-/* CONTENT TEXT */
 .content {
     display: flex;
     flex-direction: column;
@@ -222,7 +214,7 @@ nav a.active {
 
 .content h3 {
     margin: 0;
-    color: #0f5132; /* Hijau tua */
+    color: #0f5132;
     font-size: 22px;
     line-height: 1.4;
 }
@@ -257,8 +249,8 @@ nav a.active {
 
 .btn-detail {
     display: inline-block;
-    margin-top: auto; /* Memaksa tombol turun ke bawah jika teks sedikit */
-    color: #f8c20f; /* Kuning CSSMoRA */
+    margin-top: auto;
+    color: #f8c20f;
     font-weight: 800;
     text-decoration: none;
     font-size: 15px;
@@ -267,10 +259,6 @@ nav a.active {
 .btn-detail:hover {
     color: #0f5132;
 }
-
-/* BACKGROUND GEDUNG TRANSLUCENT BAWAH SAYA HAPUS */
-/* Karena kita sudah pakai Hero Section di atas, background samar di bawah justru akan membuat halaman terlihat ramai dan kotor. Jadi saya tiadakan. */
-
 
 /* ================= FOOTER ================= */
 .footer {

@@ -11,16 +11,16 @@ body{
 }
 
 /* NAVBAR */
+/* ================= NAVBAR ================= */
 header {
     background: #ffffff;
     padding: 13px 0;
-    border-bottom: 5px solid #f8c20f;
+    border-bottom: 5px solid #fcdf07; /* Garis bawah kuning cerah */
     position: sticky;
     top: 0;
     z-index: 9999;
 }
 
-/* Tambahkan ini untuk mengatur jarak kiri-kanan halaman */
 .pembungkus {
     margin: 0 auto;
     padding: 0 40px;
@@ -39,41 +39,36 @@ header {
 
 nav {
     display: flex;
-    gap: 15px; /* Sedikit dikecilkan agar muat dengan padding baru */
+    gap: 15px; 
     align-items: center;
 }
 
 nav a {
-    color: #1f5f3f;
+    color: #0b5244; /* Warna teks hijau gelap */
     text-decoration: none;
     font-size: 20px;
     font-weight: 500;
     transition: 0.3s;
-    padding: 8px 16px; /* Tambahan padding agar kotak rapi */
-    border-radius: 8px; /* Sudut membulat */
+    padding: 8px 16px; 
+    border-radius: 8px; 
     display: flex;
     align-items: center;
 }
 
 nav a:hover {
-    color: #d4af37;
-    background-color: rgba(244, 180, 0, 0.1); /* Efek sentuh tipis */
+    color: #073530;
+    background-color: rgba(11, 82, 68, 0.1); /* Efek hover hijau transparan */
 }
 
-/* Gaya untuk menu yang sedang aktif */
 nav a.active {
-    background-color: #f3bd28e6 !important; 
-    color: rgb(9, 9, 9) !important;             
+    background-color: #0b5244 !important; /* Latar aktif hijau gelap */
+    color: #ffffff !important;             /* Teks putih */
     font-weight: bold;
 }
 
-
-
-
-/* Gaya khusus tombol Login/Logout */
 .tombol-login {
-    background: #5daa6c;
-    color: white !important;
+    background: #F5C400; /* Latar tombol kuning */
+    color: #4a3800 !important; /* Teks coklat gelap */
     padding: 8px 18px !important;
     border-radius: 8px;
     text-decoration: none;
@@ -82,7 +77,7 @@ nav a.active {
 }
 
 .tombol-login:hover {
-    background: #144d32; /* Efek hover untuk tombol login */
+    background: #d4a800; /* Warna kuning lebih gelap saat di-hover */
 }
 /* ================= HERO ================= */
 .hero{
@@ -108,16 +103,29 @@ nav a.active {
     background:linear-gradient(to right,#1b5e20,#2e7d32);
     color:white;
     border-radius:0 14px 14px 0;
+    transition: 0.3s;
 }
 
-.search-box input{
-    width:450px;
-    padding:14px;
-    border-radius:14px 0 0 14px;
-    border:1px solid #ddd;
-    outline:none;
+.search-box button:hover{
+    background: #f8c20f;
+    color: black;
 }
 
+.search-box input:focus {
+    width: 520px;
+    border: 2px solid #f8c20f;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+    transition: all 0.4s ease;
+}
+
+.search-box input {
+    width: 450px;
+    padding: 14px;
+    border-radius: 25px 0 0 25px;
+    border: 2px solid transparent;
+    outline: none;
+    transition: all 0.4s ease;
+}
 .hero h1{
     font-size:42px;
     margin-bottom:10px;
@@ -140,7 +148,7 @@ nav a.active {
 }
 
 .right-content{
-    flex:1.8; /* Diubah dari 0.10 ke 1 agar sidebar tetap kelihatan tapi tidak terlalu besar */
+    flex:1.8;
 }
 
 .sub{
@@ -155,7 +163,7 @@ nav a.active {
     margin-bottom:30px;
     border-radius:15px;
     overflow:hidden;
-    box-shadow:0 8px 20px rgba(0, 0, 0, 0.05); /* Shadow lebih halus */
+    box-shadow:0 8px 20px rgba(0, 0, 0, 0.05);
     transition:0.3s;
 }
 
@@ -204,11 +212,7 @@ nav a.active {
 /* ================= SIDEBAR & DOKUMENTASI ================= */
 .dokumentasi {
     flex: 1.5;
-    max-width: 350px; /* Menjaga agar sidebar tidak melebar tak terkendali */
-}
-
-.right-content{
-    flex:1.8; /* Diubah dari 0.10 ke 1 agar sidebar tetap kelihatan tapi tidak terlalu besar */
+    max-width: 350px;
 }
 
 .dokumentasi h3 {
@@ -239,15 +243,33 @@ nav a.active {
     margin-bottom: 12px;
 }
 
-/* KODE BARU UNTUK GAMBAR DETAIL (YANG BESAR TADI) */
 .detail-img {
     display: block;
-    margin: 20px auto;     /* Biar di tengah */
-    width: 45%;            /* Mengecilkan gambar yang tadinya raksasa */
+    margin: 20px auto;
+    width: 45%;
     max-width: 600px;
     border-radius: 15px;
     box-shadow: 0 10px 30px rgba(0,0,0,0.1);
     border: 5px solid white;
+}
+
+/* ================= FOTO DOKUMENTASI ================= */
+.foto-dokumentasi {
+    width: 100%;
+    height: 220px;
+    object-fit: cover;
+    border-radius: 8px;
+    display: block;
+}
+
+.keterangan-dokumentasi {
+    text-align: center;
+    font-weight: 600;
+    color: #144d32;
+    margin-top: 10px;
+    font-size: 15px;
+    padding: 5px 0;
+    border-top: 1px solid #eee;
 }
 
 /* ================= RESPONSIVE ================= */
@@ -264,18 +286,18 @@ nav a.active {
         height:220px;
     }
     .detail-img {
-        width: 90%; /* Di HP gambar detail tetap besar biar jelas */
+        width: 90%;
     }
 }
 
+/* ================= FOOTER ================= */
 .footer {
-    background: #ffffff; /* Menggunakan HEX solid agar pasti tidak transparan */
-    color: #1f5f3f;      /* Warna teks hijau tua yang tegas */
+    background: #ffffff;
+    color: #1f5f3f;
     text-align: center;
-    padding: 20px 0;     /* Sedikit lebih tebal ukurannya */
+    padding: 20px 0;
     font-size: 14px;
-    font-weight: bold;   /* Menebalkan tulisan di footer */
-
+    font-weight: bold;
     position: fixed;
     bottom: 0;
     left: 0;
@@ -286,7 +308,7 @@ nav a.active {
 /* ================= TOMBOL KONTROL ADMIN ================= */
 .btn-tambah {
     display: inline-block;
-    background: #d4af37; /* Kuning emas CSSMoRA */
+    background: #d4af37;
     color: #1f4d2e;
     padding: 12px 25px;
     border-radius: 8px;

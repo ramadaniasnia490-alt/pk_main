@@ -2,12 +2,10 @@
 if (session_status() === PHP_SESSION_NONE) {
     session_start();
 }
-// Tambahkan pendeteksi halaman aktif setelah ini
 $halaman_sekarang = basename($_SERVER['PHP_SELF']); 
 
 include "koneksi.php";
 
-// LOGIKA FILTER DAN PENCARIAN
 $angkatan = isset($_GET['angkatan']) ? mysqli_real_escape_string($conn, $_GET['angkatan']) : '';
 $jurusan = isset($_GET['jurusan']) ? mysqli_real_escape_string($conn, $_GET['jurusan']) : '';
 $cari = isset($_GET['cari']) ? mysqli_real_escape_string($conn, $_GET['cari']) : '';
@@ -50,7 +48,7 @@ $query = mysqli_query($conn, $sql);
             <a href="../INFO/index.php" class="<?php echo strpos($url_sekarang, '/INFO/') !== false ? 'active' : ''; ?>">Info Kegiatan</a>
             <a href="../berita/index.php" class="<?php echo strpos($url_sekarang, '/berita/') !== false ? 'active' : ''; ?>">Berita</a>
 
-            <?php if(isset($_SESSION['role'])): ?>
+           <?php if(isset($_SESSION['role'])): ?>
                 
                 <?php if($_SESSION['role'] == 'admin'): ?>
                     <a href="../login/dashboard/index.php" class="<?php echo strpos($url_sekarang, '/dashboard/') !== false ? 'active' : ''; ?>">Dashboard</a>
@@ -60,21 +58,16 @@ $query = mysqli_query($conn, $sql);
             
             <?php else: ?>
                 
-                <a href="../login/index.php" style="background: #1f5f3f; color: white; padding: 8px 15px; border-radius: 5px; font-weight: bold; text-decoration: none; margin-left: 15px;">Login</a>
+                <a href="../login/index.php" class="tombol-login" style="margin-left: 15px;">Login</a>
                 
             <?php endif; ?>
         </nav>
     </div>
 </header>
 <?php endif; ?>
+
 <div class="pembungkus">
     <h2 class="judul-halaman">Data Alumni CSSMoRA</h2>
-
-    <?php if(isset($_SESSION['role']) && $_SESSION['role'] == 'admin'): ?>
-    <div style="margin-bottom: 20px;"> 
-        <a href="create.php<?php echo isset($_GET['sembunyikan_nav']) ? '?sembunyikan_nav=ya' : ''; ?>" class="tombol-tambah">+ Tambah Alumni</a>
-    </div>
-    <?php endif; ?>
 </div>
 
 <form method="GET" class="pembungkus kotak-filter">
@@ -125,12 +118,12 @@ $query = mysqli_query($conn, $sql);
 
     <div class="kotak-alumni">
         <div class="bagian-foto">
-    <?php if(!empty($data['foto'])): ?>
-        <img src="uploads/<?php echo htmlspecialchars($data['foto']); ?>" alt="Foto Profil" style="width:100%; height:100%; object-fit:cover;">
-    <?php else: ?>
-        <img src="foto.webp" alt="Foto Profil">
-    <?php endif; ?>
-</div>
+            <?php if(!empty($data['foto'])): ?>
+                <img src="uploads/<?php echo htmlspecialchars($data['foto']); ?>" alt="Foto Profil" style="width:100%; height:100%; object-fit:cover;">
+            <?php else: ?>
+                <img src="foto.webp" alt="Foto Profil">
+            <?php endif; ?>
+        </div>
 
         <div class="bagian-info">
             <h3><?php echo htmlspecialchars($data['nama']); ?></h3>

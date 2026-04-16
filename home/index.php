@@ -31,7 +31,7 @@ session_start();
             
             <?php else: ?>
                 
-                <a href="../login/index.php" style="background: #1f5f3f; color: white; padding: 8px 15px; border-radius: 5px; font-weight: bold; text-decoration: none; margin-left: 15px;">Login</a>
+                <a href="../login/index.php" class="tombol-login" style="margin-left: 15px;">Login</a>
                 
             <?php endif; ?>
         </nav>
@@ -124,7 +124,7 @@ session_start();
                     <img src="alumni.png" alt="Icon Alumni">
                 </div>
                 <div>
-                    <h3>12,500</h3>
+                    <h3>130</h3>
                     <p>Alumni</p>
                 </div>
             </div>
@@ -136,7 +136,7 @@ session_start();
                     <img src="topi.png" alt="Icon Topi">
                 </div>
                 <div>
-                    <h3>250</h3>
+                    <h3>8</h3>
                     <p>Angkatan</p>
                 </div>
             </div>
@@ -148,7 +148,7 @@ session_start();
                     <img src="palu.png" alt="Icon Palu">
                 </div>
                 <div>
-                    <h3>85</h3>
+                    <h3>46</h3>
                     <p>Pengurus</p>
                 </div>
             </div>

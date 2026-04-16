@@ -10,15 +10,16 @@ if(!isset($_SESSION['role']) || $_SESSION['role'] != 'admin'){
 include "koneksi.php";
 
 if(isset($_POST['simpan'])){
-    $judul     = mysqli_real_escape_string($conn, $_POST['judul']);
-    $kategori  = mysqli_real_escape_string($conn, $_POST['kategori']);
-    $tanggal   = mysqli_real_escape_string($conn, $_POST['tanggal']);
-    $waktu     = mysqli_real_escape_string($conn, $_POST['waktu']);
-    $lokasi    = mysqli_real_escape_string($conn, $_POST['lokasi']);
-    $deskripsi = mysqli_real_escape_string($conn, $_POST['deskripsi']);
+    $judul          = mysqli_real_escape_string($conn, $_POST['judul']);
+    $kategori       = mysqli_real_escape_string($conn, $_POST['kategori']);
+    $tanggal_mulai  = mysqli_real_escape_string($conn, $_POST['tanggal_mulai']);
+    $tanggal_selesai= mysqli_real_escape_string($conn, $_POST['tanggal_selesai']);
+    $waktu          = mysqli_real_escape_string($conn, $_POST['waktu']);
+    $lokasi         = mysqli_real_escape_string($conn, $_POST['lokasi']);
+    $deskripsi      = mysqli_real_escape_string($conn, $_POST['deskripsi']);
 
-    $query_kegiatan = mysqli_query($conn, "INSERT INTO kegiatan (judul, kategori, tanggal_kegiatan, waktu, lokasi, deskripsi) 
-                                           VALUES ('$judul', '$kategori', '$tanggal', '$waktu', '$lokasi', '$deskripsi')");
+    $query_kegiatan = mysqli_query($conn, "INSERT INTO kegiatan (judul, kategori, tanggal_kegiatan, tanggal_selesai, waktu, lokasi, deskripsi) 
+                                           VALUES ('$judul', '$kategori', '$tanggal_mulai', '$tanggal_selesai', '$waktu', '$lokasi', '$deskripsi')");
     
     if($query_kegiatan){
         $id_kegiatan = mysqli_insert_id($conn);
@@ -57,12 +58,13 @@ if(isset($_POST['simpan'])){
         button { margin-top: 20px; width: 100%; padding: 12px; background: #1f5f3f; color: white; border: none; border-radius: 5px; font-weight: bold; cursor: pointer; }
         button:hover { background: #144d32; }
         .btn-batal { display: block; text-align: center; margin-top: 10px; color: #dc3545; text-decoration: none; font-size: 14px; }
+        .error-msg { color: red; font-size: 12px; margin-top: 4px; display: none; }
     </style>
 </head>
 <body>
     <div class="form-box">
         <h2 style="text-align:center; color:#1f5f3f; margin-top:0;">Tambah Kegiatan</h2>
-        <form method="POST" enctype="multipart/form-data">
+        <form method="POST" enctype="multipart/form-data" id="formKegiatan">
             
             <label>Judul Kegiatan</label>
             <input type="text" name="judul" required>
@@ -72,13 +74,19 @@ if(isset($_POST['simpan'])){
 
             <div style="display:flex; gap:10px;">
                 <div style="flex:1;">
-                    <label>Tanggal</label>
-                    <input type="date" name="tanggal" required>
+                    <label>Tanggal Mulai</label>
+                    <input type="date" name="tanggal_mulai" id="tanggal_mulai" required>
                 </div>
                 <div style="flex:1;">
-                    <label>Waktu</label>
-                    <input type="time" name="waktu" required>
+                    <label>Tanggal Selesai</label>
+                    <input type="date" name="tanggal_selesai" id="tanggal_selesai" required>
+                    <span class="error-msg" id="error_tanggal">Tanggal selesai tidak boleh sebelum tanggal mulai!</span>
                 </div>
+            </div>
+
+            <div style="margin-top:10px;">
+                <label>Waktu</label>
+                <input type="time" name="waktu" required>
             </div>
 
             <label>Lokasi</label>
@@ -96,35 +104,43 @@ if(isset($_POST['simpan'])){
     </div>
 
     <script>
-        const textarea = document.getElementById('deskripsi');
+        // Validasi tanggal selesai tidak boleh sebelum tanggal mulai
+        document.getElementById('formKegiatan').addEventListener('submit', function(e){
+            const mulai   = document.getElementById('tanggal_mulai').value;
+            const selesai = document.getElementById('tanggal_selesai').value;
+            const errorEl = document.getElementById('error_tanggal');
 
+            if(mulai && selesai && selesai < mulai){
+                e.preventDefault();
+                errorEl.style.display = 'block';
+                document.getElementById('tanggal_selesai').focus();
+            } else {
+                errorEl.style.display = 'none';
+            }
+        });
+
+        // Auto set tanggal selesai minimal = tanggal mulai
+        document.getElementById('tanggal_mulai').addEventListener('change', function(){
+            document.getElementById('tanggal_selesai').min = this.value;
+        });
+
+        // Paste handler deskripsi
+        const textarea = document.getElementById('deskripsi');
         textarea.addEventListener('paste', async function(e) {
             e.preventDefault();
-
             let text = '';
-
-            // Cara modern (async clipboard API)
             if (navigator.clipboard && navigator.clipboard.readText) {
                 try {
                     text = await navigator.clipboard.readText();
                 } catch (err) {
-                    // Fallback ke cara lama jika clipboard API diblokir
                     text = (e.clipboardData || window.clipboardData).getData('text/plain');
                 }
             } else {
-                // Fallback untuk browser lama
                 text = (e.clipboardData || window.clipboardData).getData('text/plain');
             }
-
-            // Sisipkan teks di posisi kursor
             const start = textarea.selectionStart;
             const end   = textarea.selectionEnd;
-            const before = textarea.value.substring(0, start);
-            const after  = textarea.value.substring(end);
-
-            textarea.value = before + text + after;
-
-            // Pindahkan kursor ke akhir teks yang baru di-paste
+            textarea.value = textarea.value.substring(0, start) + text + textarea.value.substring(end);
             textarea.selectionStart = textarea.selectionEnd = start + text.length;
         });
     </script>
